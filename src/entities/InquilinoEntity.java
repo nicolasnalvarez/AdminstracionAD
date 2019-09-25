@@ -1,20 +1,16 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="inquilinos")
 public class InquilinoEntity {
 
 	@Id
+	@Column(name = "id_inquilino")
 	private Integer id;
 	@ManyToOne
-	@JoinColumn(name="identificador")
+	@JoinColumn(name="id_unidad")
 	private UnidadEntity unidad;
 	@ManyToOne
 	@JoinColumn(name="documento")	

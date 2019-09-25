@@ -7,9 +7,7 @@ import modelo.Reclamo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ReclamoDAO {
@@ -25,18 +23,14 @@ public class ReclamoDAO {
     }
 
     public List<Reclamo> getAll() throws ReclamoException {
-        List<Reclamo> resultado = new ArrayList();
+        List<Reclamo> resultado = new ArrayList<>();
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.getCurrentSession();
         s.beginTransaction();
         List<ReclamoEntity> reclamos = s.createQuery("from ReclamoEntity").list();
-        Iterator iterator = reclamos.iterator();
-
-        while(iterator.hasNext()) {
-            ReclamoEntity e = (ReclamoEntity)iterator.next();
+        for (ReclamoEntity e : reclamos) {
             resultado.add(this.toNegocio(e));
         }
-
         s.getTransaction().commit();
         return resultado;
     }
@@ -45,13 +39,13 @@ public class ReclamoDAO {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.getCurrentSession();
         s.beginTransaction();
-        s.save(new ReclamoEntity(reclamo.getDocumento(), reclamo.getCodigo(), reclamo.getUbicacion(), reclamo.getDescripcion(), reclamo.getIdentificador()));
+        s.save(new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion()));
         s.getTransaction().commit();
     }
 
-    Reclamo toNegocio(ReclamoEntity e) throws ReclamoException {
-        if (e != null) {
-            return new Reclamo(e.getIdReclamo(), e.getDocumento(), e.getCodigo(), e.getUbicacion(), e.getDescripcion(), e.getIdentificador());
+    private Reclamo toNegocio(ReclamoEntity reclamoEntity) throws ReclamoException {
+        if (reclamoEntity != null) {
+            return new Reclamo(reclamoEntity.getId(), reclamoEntity.getPersona().toNegocio(), reclamoEntity.getEdificio().toNegocio(), reclamoEntity.getUnidad().toNegocio(), reclamoEntity.getUbicacion(), reclamoEntity.getDescripcion());
         } else {
             throw new ReclamoException("No se pudieron recuperar los reclamos");
         }

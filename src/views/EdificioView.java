@@ -2,24 +2,24 @@ package views;
 
 public class EdificioView {
 
-	private int codigo;
+	private int id;
 	private String nombre;
 	private String direccion;
 	
 	public EdificioView () {}
 	
-	public EdificioView(int codigo, String nombre, String direccion) {
-		this.codigo = codigo;
+	public EdificioView(int id, String nombre, String direccion) {
+		this.id = id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getId() {
+		return id;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -39,6 +39,6 @@ public class EdificioView {
 	}
 	
 	public String toString() {
-		return codigo + " " + nombre; 
+		return id + " " + nombre;
 	}
 }

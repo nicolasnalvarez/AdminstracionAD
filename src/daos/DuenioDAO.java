@@ -24,7 +24,7 @@ public class DuenioDAO {
 	}
 
 	public List<Persona> getDueniosByUnidad(int id) throws PersonaException {
-		List<Persona> resultado = new ArrayList<Persona>();
+		List<Persona> resultado = new ArrayList<>();
 
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();

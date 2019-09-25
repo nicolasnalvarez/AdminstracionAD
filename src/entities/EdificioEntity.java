@@ -1,21 +1,18 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import modelo.Edificio;
+import modelo.Reclamo;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="edificios")
 public class EdificioEntity {
 	
 	@Id
-	private Integer codigo;
+	@Column(name = "id_edificio")
+	private Integer id;
 	private String nombre;
 	private String direccion;
 	@OneToMany(fetch = FetchType.LAZY)
@@ -24,14 +21,14 @@ public class EdificioEntity {
 	
 	public EdificioEntity() { }
 	
-	public EdificioEntity(int codigo, String nombre, String direccion) {
-		this.codigo = codigo;
+	public EdificioEntity(int id, String nombre, String direccion) {
+		this.id = id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 	}
 	
-	public Integer getCodigo() {
-		return codigo;
+	public Integer getId() {
+		return id;
 	}
 	
 	public String getNombre() {
@@ -40,5 +37,9 @@ public class EdificioEntity {
 
 	public String getDireccion() {
 		return direccion;
+	}
+
+	public Edificio toNegocio() {
+		return new Edificio(id, nombre, direccion);
 	}
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import modelo.Reclamo;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,46 +10,64 @@ public class ReclamoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idReclamo;
-    private String documento;
-    private Integer codigo;
+    @Column(name = "id_reclamo")
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name="documento")
+    private PersonaEntity persona;
+
+    @ManyToOne
+    @JoinColumn(name="id_edificio")
+    private EdificioEntity edificio;
+
+    @ManyToOne
+    @JoinColumn(name="id_unidad")
+    private UnidadEntity unidad;
+
     private String ubicacion;
     private String descripcion;
-    private Integer identificador;
 
     public ReclamoEntity() {}
 
-    public ReclamoEntity(String documento, Integer codigo, String ubicacion, String descripcion, Integer identificador) {
-        this.idReclamo = idReclamo;
-        this.documento = documento;
-        this.codigo = codigo;
+    public ReclamoEntity(PersonaEntity persona, EdificioEntity edificio, UnidadEntity unidad, String ubicacion, String descripcion) {
+        this.persona = persona;
+        this.edificio = edificio;
+        this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.identificador = identificador;
     }
 
-    public Integer getIdReclamo() {
-        return idReclamo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdReclamo(Integer idReclamo) {
-        this.idReclamo = idReclamo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getDocumento() {
-        return documento;
+    public PersonaEntity getPersona() {
+        return persona;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
+    public void setPersona(PersonaEntity persona) {
+        this.persona = persona;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public EdificioEntity getEdificio() {
+        return edificio;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setEdificio(EdificioEntity edificio) {
+        this.edificio = edificio;
+    }
+
+    public UnidadEntity getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(UnidadEntity unidad) {
+        this.unidad = unidad;
     }
 
     public String getUbicacion() {
@@ -66,11 +86,7 @@ public class ReclamoEntity {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(Integer identificador) {
-        this.identificador = identificador;
+    public Reclamo toNegocio() {
+        return new Reclamo(id, persona.toNegocio(), edificio.toNegocio(), unidad.toNegocio(), ubicacion, descripcion);
     }
 }

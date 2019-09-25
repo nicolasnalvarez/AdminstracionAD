@@ -1,5 +1,6 @@
 package modelo;
 
+import entities.PersonaEntity;
 import views.PersonaView;
 
 public class Persona {
@@ -30,5 +31,9 @@ public class Persona {
 
 	public void delete() {
 		
-	}	
+	}
+
+	public PersonaEntity toEntity() {
+		return new PersonaEntity(documento, nombre);
+	}
 }

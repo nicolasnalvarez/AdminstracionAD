@@ -6,14 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.DuenioEntity;
-import entities.PersonaEntity;
 import entities.UnidadEntity;
 import exceptions.EdificioException;
 import exceptions.UnidadException;
 import hibernate.HibernateUtil;
 import modelo.Edificio;
-import modelo.Persona;
 import modelo.Unidad;
 
 public class UnidadDAO {
@@ -49,7 +46,7 @@ public class UnidadDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		UnidadEntity unidad = (UnidadEntity) s.createQuery("from UnidadEntity u where u.piso = ? and u.numero = ? and u.edificio.codigo = ?")
+		UnidadEntity unidad = (UnidadEntity) s.createQuery("from UnidadEntity u where u.piso = ? and u.numero = ? and u.edificio.id = ?")
 				.setString(0, piso)
 				.setString(1, numero)
 				.setInteger(2, codigo)
@@ -66,7 +63,7 @@ public class UnidadDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		List<UnidadEntity> unidades = (List<UnidadEntity>) s.createQuery("from UnidadEntity ue where ue.edificio.codigo = ?").setInteger(0, edificio.getCodigo()).list();
+		List<UnidadEntity> unidades = (List<UnidadEntity>) s.createQuery("from UnidadEntity ue where ue.edificio.id = ?").setInteger(0, edificio.getId()).list();
 		if(unidades != null) {
 			for(UnidadEntity ue : unidades)
 				resultado.add(toNegocio(ue, edificio));
@@ -79,7 +76,7 @@ public class UnidadDAO {
 		
 	Unidad toNegocio(UnidadEntity e) throws EdificioException, UnidadException {
 		if(e != null) {
-			Edificio edificio = new Edificio(e.getEdificio().getCodigo(), e.getEdificio().getNombre(), e.getEdificio().getDireccion());
+			Edificio edificio = new Edificio(e.getEdificio().getId(), e.getEdificio().getNombre(), e.getEdificio().getDireccion());
 			Unidad unidad = new Unidad(e.getId(), e.getPiso(), e.getNumero(), edificio);
 			if(e.getHabitado().equals("S"))
 				unidad.habitar();

@@ -5,7 +5,10 @@ import exceptions.EdificioException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
+import modelo.Edificio;
+import modelo.Persona;
 import modelo.Reclamo;
+import modelo.Unidad;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
@@ -44,11 +47,12 @@ public class Test {
 		List<ReclamoView> re = Controlador.getInstancia().todosLosReclamos();
 		System.out.println("\nReclamos " + re.size());
 
-		Reclamo reclamoTest = new Reclamo("CPA3449614", 3, "living", "asd", 3);
+		Persona persona = new Persona("DNI30979256", "Carlos");
+		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
+;		Unidad unidad = new Unidad(3, "", "5", edificio);
+		Reclamo reclamoTest = new Reclamo(persona, edificio, unidad, "cocina", "Se rompio toda la cocina");
 		Controlador.getInstancia().generarReclamo(reclamoTest);
 		System.out.println("\nSe guardo el reclamo correctamente");
-
-		
 	}
 
 }

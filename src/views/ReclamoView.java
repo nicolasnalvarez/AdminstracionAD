@@ -2,30 +2,32 @@ package views;
 
 public class ReclamoView {
 
-    private Integer idReclamo;
+    //Seguro esto haya que cambiarlo y agregar entidades, por que por ej idEdificio no sirve de nada para el frontend
+
+    private Integer id;
     private String documento;
-    private Integer codigo;
+    private Integer idEdificio;
+    private Integer idUnidad;
     private String ubicacion;
     private String descripcion;
-    private Integer identificador;
 
     public ReclamoView() {}
 
-    public ReclamoView(Integer idReclamo, String documento, Integer codigo, String ubicacion, String descripcion, Integer identificador) {
-        this.idReclamo = idReclamo;
+    public ReclamoView(Integer id, String documento, Integer idEdificio, Integer idUnidad, String ubicacion, String descripcion) {
+        this.id = id;
         this.documento = documento;
-        this.codigo = codigo;
+        this.idEdificio = idEdificio;
+        this.idUnidad = idUnidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.identificador = identificador;
     }
 
-    public Integer getIdReclamo() {
-        return idReclamo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdReclamo(Integer idReclamo) {
-        this.idReclamo = idReclamo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDocumento() {
@@ -36,12 +38,20 @@ public class ReclamoView {
         this.documento = documento;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getIdEdificio() {
+        return idEdificio;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setIdEdificio(Integer idEdificio) {
+        this.idEdificio = idEdificio;
+    }
+
+    public Integer getIdUnidad() {
+        return idUnidad;
+    }
+
+    public void setIdUnidad(Integer idUnidad) {
+        this.idUnidad = idUnidad;
     }
 
     public String getUbicacion() {
@@ -58,13 +68,5 @@ public class ReclamoView {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Integer getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(Integer identificador) {
-        this.identificador = identificador;
     }
 }

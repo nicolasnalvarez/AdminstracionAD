@@ -1,10 +1,11 @@
 package entities;
 
+import modelo.Persona;
+import modelo.Reclamo;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import views.PersonaView;
 
 @Entity
 @Table(name="personas")
@@ -29,4 +30,7 @@ public class PersonaEntity {
 		return nombre;
 	}
 
+	public Persona toNegocio() {
+		return new Persona(documento, nombre);
+	}
 }

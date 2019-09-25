@@ -1,5 +1,8 @@
 package entities;
 
+import modelo.Edificio;
+import modelo.Unidad;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,22 +18,22 @@ import javax.persistence.Table;
 public class UnidadEntity {
 
 	@Id
-	@Column(name = "identificador")
+	@Column(name = "id_unidad")
 	private int id;
 	private String piso;
 	private String numero;
 	private String habitado;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigoEdificio")
+	@JoinColumn(name = "id_edificio")
 	private EdificioEntity edificio;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="documento")
+	@JoinColumn(name="documento_duenio")
 	List<DuenioEntity> duenios;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="documento")
+	@JoinColumn(name="documento_inquilino")
 	List<InquilinoEntity> inquilinos;
 	
 	public UnidadEntity() {}
@@ -65,5 +68,9 @@ public class UnidadEntity {
 	
 	public List<DuenioEntity> getDuenios(){
 		return duenios;
+	}
+
+	public Unidad toNegocio() {
+		return new Unidad(id, piso, numero, edificio.toNegocio());
 	}
 }

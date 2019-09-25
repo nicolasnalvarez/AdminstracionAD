@@ -5,6 +5,7 @@ import java.util.List;
 
 import daos.DuenioDAO;
 import daos.InquilinoDAO;
+import entities.UnidadEntity;
 import exceptions.PersonaException;
 import exceptions.UnidadException;
 import views.EdificioView;
@@ -102,5 +103,9 @@ public class Unidad {
 	public UnidadView toView() {
 		EdificioView auxEdificio = edificio.toView();
 		return new UnidadView(id, piso, numero, habitado, auxEdificio);
+	}
+
+	public UnidadEntity toEntity() {
+		return new UnidadEntity(id, piso, numero, edificio.toEntity());
 	}
 }

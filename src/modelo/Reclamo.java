@@ -5,31 +5,31 @@ import views.ReclamoView;
 public class Reclamo {
 
     private Integer idReclamo;
-    private String documento;
-    private Integer codigo;
+    private Persona persona;
+    private Edificio edificio;
+    private Unidad unidad;
     private String ubicacion;
     private String descripcion;
-    private Integer identificador;
 
     public Reclamo() {
 
     }
 
-    public Reclamo(Integer idReclamo, String documento, Integer codigo, String ubicacion, String descripcion, Integer identificador) {
+    public Reclamo(Integer idReclamo, Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
         this.idReclamo = idReclamo;
-        this.documento = documento;
-        this.codigo = codigo;
+        this.persona = persona;
+        this.edificio = edificio;
+        this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.identificador = identificador;
     }
 
-    public Reclamo(String documento, Integer codigo, String ubicacion, String descripcion, Integer identificador) {
-        this.documento = documento;
-        this.codigo = codigo;
+    public Reclamo(Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
+        this.persona = persona;
+        this.edificio = edificio;
+        this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.identificador = identificador;
     }
 
     public Integer getIdReclamo() {
@@ -40,20 +40,28 @@ public class Reclamo {
         this.idReclamo = idReclamo;
     }
 
-    public String getDocumento() {
-        return documento;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Edificio getEdificio() {
+        return edificio;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
+    }
+
+    public Unidad getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
     }
 
     public String getUbicacion() {
@@ -72,15 +80,7 @@ public class Reclamo {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(Integer identificador) {
-        this.identificador = identificador;
-    }
-
     public ReclamoView toView() {
-        return new ReclamoView(idReclamo,documento,codigo,ubicacion,descripcion,identificador);
+        return new ReclamoView(idReclamo,persona.getDocumento(),edificio.getId(),unidad.getId(), ubicacion,descripcion);
     }
 }

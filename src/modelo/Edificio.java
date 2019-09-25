@@ -1,6 +1,7 @@
 package modelo;
 
 import daos.UnidadDAO;
+import entities.EdificioEntity;
 import exceptions.EdificioException;
 import exceptions.PersonaException;
 import exceptions.UnidadException;
@@ -12,13 +13,13 @@ import java.util.Set;
 
 public class Edificio {
 	
-	private int codigo;
+	private int id;
 	private String nombre;
 	private String direccion;
 	private List<Unidad> unidades;
 	
-	public Edificio(int codigo, String nombre, String direccion) {
-		this.codigo = codigo;
+	public Edificio(int id, String nombre, String direccion) {
+		this.id = id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 	}
@@ -43,8 +44,8 @@ public class Edificio {
 		return habilitados;
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getId() {
+		return id;
 	}
 
 	public String getNombre() {
@@ -109,8 +110,11 @@ public class Edificio {
 	}
 
 	public EdificioView toView() {
-		return new EdificioView(codigo, nombre, direccion);
+		return new EdificioView(id, nombre, direccion);
 	}
 
+	public EdificioEntity toEntity() {
+		return new EdificioEntity(id, nombre, direccion);
+	}
 
 }
