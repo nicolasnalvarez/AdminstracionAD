@@ -5,10 +5,7 @@ import exceptions.EdificioException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
-import modelo.Edificio;
-import modelo.Persona;
-import modelo.Reclamo;
-import modelo.Unidad;
+import modelo.*;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
@@ -51,7 +48,8 @@ public class Test {
 		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
 ;		Unidad unidad = new Unidad(3, "", "5", edificio);
 		Reclamo reclamoTest = new Reclamo(persona, edificio, unidad, "cocina", "Se rompio toda la cocina");
-		Controlador.getInstancia().generarReclamo(reclamoTest);
+		Multimedia multimedia = new Multimedia(1, "test-path", "imagen", reclamoTest);
+		Controlador.getInstancia().generarReclamo(reclamoTest, multimedia);
 		System.out.println("\nSe guardo el reclamo correctamente");
 	}
 

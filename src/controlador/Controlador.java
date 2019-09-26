@@ -8,10 +8,7 @@ import exceptions.EdificioException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
-import modelo.Edificio;
-import modelo.Persona;
-import modelo.Reclamo;
-import modelo.Unidad;
+import modelo.*;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
@@ -118,8 +115,9 @@ public class Controlador {
 		return resultado;
 	}
 
-	public void generarReclamo(Reclamo reclamo) {
+	public void generarReclamo(Reclamo reclamo, Multimedia multimedia) {
 		ReclamoDAO.getInstancia().save(reclamo);
+		//TODO hay que guardar la imagen una vez que tengamos el id del reclamo
 	}
 	
 	/** OK */

@@ -1,9 +1,11 @@
 package modelo;
 
+import entities.ReclamoEntity;
 import views.ReclamoView;
 
 public class Reclamo {
 
+    //TODO analizar si conviene tener las entidades o solo recibir las keys de cada uno (por ej documento en Persona)
     private Integer idReclamo;
     private Persona persona;
     private Edificio edificio;
@@ -82,5 +84,9 @@ public class Reclamo {
 
     public ReclamoView toView() {
         return new ReclamoView(idReclamo,persona.getDocumento(),edificio.getId(),unidad.getId(), ubicacion,descripcion);
+    }
+
+    public ReclamoEntity toEntity() {
+        return new ReclamoEntity(persona.toEntity(), edificio.toEntity(), unidad.toEntity(), ubicacion, descripcion);
     }
 }
