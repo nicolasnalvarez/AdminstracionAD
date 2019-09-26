@@ -1,6 +1,7 @@
 package entities;
 
 import modelo.Reclamo;
+import views.Estado;
 
 import javax.persistence.*;
 
@@ -27,6 +28,7 @@ public class ReclamoEntity {
 
     private String ubicacion;
     private String descripcion;
+    private Estado estado;
 
     public ReclamoEntity() {}
 
@@ -36,6 +38,7 @@ public class ReclamoEntity {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.estado = Estado.nuevo;
     }
 
     public Integer getId() {

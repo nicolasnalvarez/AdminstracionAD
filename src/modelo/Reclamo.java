@@ -1,6 +1,7 @@
 package modelo;
 
 import entities.ReclamoEntity;
+import views.Estado;
 import views.ReclamoView;
 
 public class Reclamo {
@@ -12,6 +13,7 @@ public class Reclamo {
     private Unidad unidad;
     private String ubicacion;
     private String descripcion;
+    private Estado estado;
 
     public Reclamo() {
 
@@ -24,6 +26,7 @@ public class Reclamo {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.estado = Estado.nuevo;
     }
 
     public Reclamo(Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
@@ -32,6 +35,7 @@ public class Reclamo {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.estado = Estado.nuevo;
     }
 
     public Integer getIdReclamo() {
@@ -82,8 +86,16 @@ public class Reclamo {
         this.descripcion = descripcion;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     public ReclamoView toView() {
-        return new ReclamoView(idReclamo,persona.getDocumento(),edificio.getId(),unidad.getId(), ubicacion,descripcion);
+        return new ReclamoView(idReclamo,persona.getDocumento(),edificio.getId(),unidad.getId(), ubicacion, descripcion, estado);
     }
 
     public ReclamoEntity toEntity() {

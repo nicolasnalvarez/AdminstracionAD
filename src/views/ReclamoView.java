@@ -10,16 +10,18 @@ public class ReclamoView {
     private Integer idUnidad;
     private String ubicacion;
     private String descripcion;
+    private Estado estado;
 
     public ReclamoView() {}
 
-    public ReclamoView(Integer id, String documento, Integer idEdificio, Integer idUnidad, String ubicacion, String descripcion) {
+    public ReclamoView(Integer id, String documento, Integer idEdificio, Integer idUnidad, String ubicacion, String descripcion, Estado estado) {
         this.id = id;
         this.documento = documento;
         this.idEdificio = idEdificio;
         this.idUnidad = idUnidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
 
     public Integer getId() {
