@@ -28,7 +28,7 @@ public class ReclamoEntity {
 
     private String ubicacion;
     private String descripcion;
-    private Estado estado;
+    private String estado;
 
     public ReclamoEntity() {}
 
@@ -38,7 +38,7 @@ public class ReclamoEntity {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.estado = Estado.nuevo;
+        this.estado = Estado.nuevo.name();
     }
 
     public Integer getId() {

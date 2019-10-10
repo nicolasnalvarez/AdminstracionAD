@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class InquilinoEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_inquilino")
 	private Integer id;
 	@ManyToOne

@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class DuenioEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_duenio")
 	private Integer id;
 	@ManyToOne

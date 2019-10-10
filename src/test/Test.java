@@ -11,6 +11,7 @@ import views.PersonaView;
 import views.ReclamoView;
 import views.UnidadView;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Test {
@@ -48,8 +49,8 @@ public class Test {
 		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
 ;		Unidad unidad = new Unidad(3, "", "5", edificio);
 		Reclamo reclamoTest = new Reclamo(persona, edificio, unidad, "cocina", "Se rompio toda la cocina");
-		Multimedia multimedia = new Multimedia(1, "test-path", "imagen", reclamoTest);
-		Controlador.getInstancia().generarReclamo(reclamoTest, multimedia);
+		Imagen imagen = new Imagen(1, "test-path", "imagen", reclamoTest);
+		Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
 		System.out.println("\nSe guardo el reclamo correctamente");
 	}
 

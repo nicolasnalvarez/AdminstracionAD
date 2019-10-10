@@ -1,8 +1,11 @@
 package modelo;
 
+import daos.ReclamoDAO;
 import entities.ReclamoEntity;
 import views.Estado;
 import views.ReclamoView;
+
+import java.util.List;
 
 public class Reclamo {
 
@@ -100,5 +103,9 @@ public class Reclamo {
 
     public ReclamoEntity toEntity() {
         return new ReclamoEntity(persona.toEntity(), edificio.toEntity(), unidad.toEntity(), ubicacion, descripcion);
+    }
+
+    public int save(List<Imagen> imagenes) {
+        return ReclamoDAO.getInstancia().save(this, imagenes);
     }
 }

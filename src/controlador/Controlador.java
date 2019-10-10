@@ -107,6 +107,16 @@ public class Controlador {
 		return resultado;
 	}
 
+	public UnidadView validarInquilino(String documento) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getUnidadInquilino().toView();
+	}
+
+	public UnidadView validarDuenio(String documento) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getUnidadDuenio().toView();
+	}
+
 	public List<ReclamoView> todosLosReclamos() throws ReclamoException {
 		List<ReclamoView> resultado = new ArrayList<>();
 		List<Reclamo> reclamos = ReclamoDAO.getInstancia().getAll();
@@ -115,9 +125,8 @@ public class Controlador {
 		return resultado;
 	}
 
-	public void generarReclamo(Reclamo reclamo, Multimedia multimedia) {
-		ReclamoDAO.getInstancia().save(reclamo);
-		//TODO hay que guardar la imagen una vez que tengamos el id del reclamo
+	public int generarReclamo(Reclamo reclamo, List<Imagen> imagenes) {
+		return reclamo.save(imagenes);
 	}
 	
 	/** OK */

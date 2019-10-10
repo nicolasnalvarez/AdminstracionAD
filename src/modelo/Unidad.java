@@ -27,12 +27,12 @@ public class Unidad {
 		this.numero = numero;
 		this.habitado = false;
 		this.edificio = edificio;
-		this.duenios = new ArrayList<Persona>();
-		this.inquilinos = new ArrayList<Persona>();
+		this.duenios = new ArrayList<>();
+		this.inquilinos = new ArrayList<>();
 	}
 
 	public void transferir(Persona nuevoDuenio) {
-		duenios = new ArrayList<Persona>();
+		duenios = new ArrayList<>();
 		duenios.add(nuevoDuenio);
 	}
 	
@@ -43,7 +43,7 @@ public class Unidad {
 	public void alquilar(Persona inquilino) throws UnidadException {
 		if(!this.habitado) {
 			this.habitado = true;
-			inquilinos = new ArrayList<Persona>();
+			inquilinos = new ArrayList<>();
 			inquilinos.add(inquilino);
 		}
 		else
@@ -59,7 +59,7 @@ public class Unidad {
 	}
 	
 	public void liberar() {
-		this.inquilinos = new ArrayList<Persona>();
+		this.inquilinos = new ArrayList<>();
 		this.habitado = false;
 	}
 	

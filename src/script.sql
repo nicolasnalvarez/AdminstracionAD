@@ -4353,10 +4353,10 @@ create table reclamos(
 )
 
 create table imagenes(
-	id_multimedia int not null identity,
+	id_imagen int not null identity,
 	path varchar(300) not null,
 	tipo varchar(10),
 	id_reclamo int,
-	constraint pk_imagenes primary key (id_multimedia),
+	constraint pk_imagenes primary key (id_imagen),
 	constraint fk_imagenes_reclamo foreign key (id_reclamo) references reclamos
 )

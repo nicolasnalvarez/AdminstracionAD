@@ -18,6 +18,7 @@ public class HibernateUtil
         	 config.addAnnotatedClass(DuenioEntity.class);
         	 config.addAnnotatedClass(InquilinoEntity.class);
         	 config.addAnnotatedClass(ReclamoEntity.class);
+             config.addAnnotatedClass(ImagenEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)
