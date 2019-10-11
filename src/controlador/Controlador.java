@@ -125,6 +125,10 @@ public class Controlador {
 		return resultado;
 	}
 
+	public ReclamoView getReclamo(int idReclamo) {
+		return ReclamoDAO.getInstancia().getById(idReclamo).toView();
+	}
+
 	public int generarReclamo(Reclamo reclamo, List<Imagen> imagenes) {
 		return reclamo.save(imagenes);
 	}

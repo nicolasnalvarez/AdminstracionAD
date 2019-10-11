@@ -16,7 +16,7 @@ public class Reclamo {
     private Unidad unidad;
     private String ubicacion;
     private String descripcion;
-    private Estado estado;
+    private Estado estado = Estado.nuevo;
 
     public Reclamo() {
 

@@ -55,4 +55,12 @@ public class ReclamoDAO {
         }
     }
 
+    public Reclamo getById(int idReclamo) {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session s = sf.getCurrentSession();
+        s.beginTransaction();
+        ReclamoEntity reclamo = (ReclamoEntity) s.createQuery("from ReclamoEntity r where r.id = ?").setInteger(0, idReclamo).uniqueResult();
+        s.getTransaction().commit();
+        return reclamo.toNegocio();
+    }
 }
