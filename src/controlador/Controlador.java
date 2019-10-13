@@ -4,16 +4,15 @@ import daos.EdificioDAO;
 import daos.PersonaDAO;
 import daos.ReclamoDAO;
 import daos.UnidadDAO;
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
+import daos.UsuarioDAO;
 import modelo.*;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
 import views.UnidadView;
+import exceptions.*;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -139,6 +138,49 @@ public class Controlador {
 	}	
 	/** OK */
 	private Persona buscarPersona(String documento) throws PersonaException {
-		return PersonaDAO.getInstancia().findByID(documento);	
+		return PersonaDAO.getInstancia().findByID(documento);
 	}
+
+	/**
+	 * Registro de usuario
+	 *
+	 */
+	// compara contra la tabla de personas para ver si existe ahi, de existir permitir el registro.
+	public void registrar(String dni, String nombre, String password) throws PersonaException {
+		Persona nuevoUsuario = buscarPersona(dni);
+		System.out.println(nuevoUsuario.getNombre());
+		if (nuevoUsuario != null){
+			Usuario usuario = new Usuario(nombre,password);
+			UsuarioDAO.getInstancia().save(usuario);
+		}
+
+
+	}
+
+	/**
+	 * Verificacion de login si existe
+	 * */
+	public boolean login(String nombre, String password) throws LoginException, CambioPasswordException, UsuarioException{
+		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
+		if(usuario.getPassword().equals(password)){
+			if(usuario.debeCambiar()) {
+				throw new CambioPasswordException("La password esta vencida, debe cambiarla");
+			}
+			return true;
+		}
+		else{
+			throw new LoginException("Los datos ingresado no son corrector, reingrese");
+		}
+	}
+	/**
+	 * Cambio de password
+	 * */
+	public void cambioPassword(String nombre, String password) throws CambioPasswordException, UsuarioException{
+		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
+		usuario.actualizoPassword(password);
+	}
+
+
+
+
 }

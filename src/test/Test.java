@@ -42,16 +42,16 @@ public class Test {
 		List<PersonaView> iu = Controlador.getInstancia().inquilinosPorUnidad(1, "1", "1");
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
-		List<ReclamoView> re = Controlador.getInstancia().todosLosReclamos();
-		System.out.println("\nReclamos " + re.size());
+		//Registro con persona que existe
+		//Controlador.getInstancia().registrar("DNI33982267","pEPITO","123456");
 
-		Persona persona = new Persona("DNI30979256", "Carlos");
-		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
-;		Unidad unidad = new Unidad(3, "", "5", edificio);
-		Reclamo reclamoTest = new Reclamo(persona, edificio, unidad, "cocina", "Se rompio toda la cocina");
-		Imagen imagen = new Imagen(1, "test-path", "imagen", reclamoTest);
-		Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
-		System.out.println("\nSe guardo el reclamo correctamente");
+		//
+
+		//Registro con persona que no existe
+		Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
+
+
+
 	}
 
 }

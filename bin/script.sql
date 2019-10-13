@@ -15,6 +15,21 @@ create table edificios(
 	constraint pk_edificios primary key (id_edificio)
 )
 
+CREATE TABLE usuarios(
+	[identificador] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [varchar](255) NULL,
+	[password] [varchar](255) NULL,
+	[habilitado] [varchar](255) NULL,
+	[fecha_creacion] [datetime] NULL,
+	[fecha_ultimo_cambio] [datetime] NULL,
+	[passwords_anteriores] [varbinary](255) NULL,
+	[cantidad_passwords] [int] NULL,
+PRIMARY KEY CLUSTERED
+(
+	[identificador] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
 insert into edificios (nombre, direccion) values ('SLS Puerto Madero','Mogliani 425')
 insert into edificios (nombre, direccion) values ('The Link Towers','Arrayanes 1230')
 insert into edificios (nombre, direccion) values ('The Fire Place','Bombares 50')
