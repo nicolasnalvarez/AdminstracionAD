@@ -1,10 +1,7 @@
 package test;
 
 import controlador.Controlador;
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
+import exceptions.*;
 import modelo.*;
 import views.EdificioView;
 import views.PersonaView;
@@ -16,7 +13,7 @@ import java.util.List;
 
 public class Test {
 
-	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException {
+	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException, LoginException, UsuarioException, CambioPasswordException {
 		
 		List<EdificioView> edificios = Controlador.getInstancia().getEdificios();
 		System.out.println("Edificios " + edificios.size());
@@ -43,12 +40,19 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
 		//Registro con persona que existe
-		//Controlador.getInstancia().registrar("DNI33982267","pEPITO","123456");
+		//Controlador.getInstancia().registrar("DNI92956906","lucas","3357");
 
-		//
+		//Login
+
+		//Controlador.getInstancia().login("pEPITO","123456");
+		//Login Correcto
+		Controlador.getInstancia().login("lucas","3357");
+
+		//Login Incorrecto
+		Controlador.getInstancia().login("lucas","11111111");
 
 		//Registro con persona que no existe
-		Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
+		//Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
 
 
 

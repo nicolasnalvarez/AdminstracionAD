@@ -163,9 +163,10 @@ public class Controlador {
 	public boolean login(String nombre, String password) throws LoginException, CambioPasswordException, UsuarioException{
 		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
 		if(usuario.getPassword().equals(password)){
+			/*Ver si le metemos esta logica para agregar expiracion de la pass"
 			if(usuario.debeCambiar()) {
 				throw new CambioPasswordException("La password esta vencida, debe cambiarla");
-			}
+			}*/
 			return true;
 		}
 		else{

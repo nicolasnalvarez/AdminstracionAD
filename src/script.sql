@@ -20,7 +20,7 @@ CREATE TABLE usuarios(
 	[nombre] [varchar](255) NULL,
 	[password] [varchar](255) NULL,
 	[habilitado] [varchar](255) NULL,
-	[fecha_creacion] [datetime] NULL,
+	[fechacreacion] [datetime] NULL,
 	[fecha_ultimo_cambio] [datetime] NULL,
 	[passwords_anteriores] [varbinary](255) NULL,
 	[cantidad_passwords] [int] NULL,
