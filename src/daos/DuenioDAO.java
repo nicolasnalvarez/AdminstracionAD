@@ -2,8 +2,10 @@ package daos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import entities.InquilinoEntity;
+import modelo.Edificio;
 import modelo.Unidad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -50,10 +52,21 @@ public class DuenioDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		DuenioEntity duenio = (DuenioEntity) s.createQuery("from DuenioEntity i where i.documento = ?").setString(0, documento).uniqueResult();
+		DuenioEntity duenio = (DuenioEntity) s.createQuery("from DuenioEntity d where d.persona.documento = ?").setString(0, documento).uniqueResult();
 		if (duenio == null) {
 			throw new PersonaException("No se pudo recuperar el dueño");
 		}
 		return duenio.getUnidad().toNegocio();
+	}
+
+	public List<Edificio> getEdificiosByDocumento(String documento) throws PersonaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<DuenioEntity> duenios = (List<DuenioEntity>) s.createQuery("from DuenioEntity d where d.persona.documento = ?").setString(0, documento).list();
+		if (duenios == null) {
+			throw new PersonaException("No se pudo recuperar el dueño");
+		}
+		return duenios.stream().map(de -> de.getUnidad().getEdificio().toNegocio()).collect(Collectors.toList());
 	}
 }

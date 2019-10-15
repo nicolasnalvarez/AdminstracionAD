@@ -2,7 +2,9 @@ package daos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import entities.DuenioEntity;
 import entities.EdificioEntity;
 import entities.PersonaEntity;
 import exceptions.EdificioException;
@@ -67,5 +69,16 @@ public class InquilinoDAO {
 		} else {
 			throw new PersonaException("No se pudo recuperar el inquilino");
 		}
+	}
+
+	public List<Edificio> getEdificiosByDocumento(String documento) throws PersonaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<InquilinoEntity> inquilinos = (List<InquilinoEntity>) s.createQuery("from InquilinoEntity i where i.documento = ?").setString(0, documento).list();
+		if (inquilinos == null) {
+			throw new PersonaException("No se pudieron recuperar los inquilinos");
+		}
+		return inquilinos.stream().map(de -> de.getUnidad().getEdificio().toNegocio()).collect(Collectors.toList());
 	}
 }

@@ -52,6 +52,9 @@ public class Test {
 		Imagen imagen = new Imagen(1, "test-path", "imagen", reclamoTest);
 		Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
 		System.out.println("\nSe guardo el reclamo correctamente");
+
+		List<EdificioView> edificiosPorDNI = Controlador.getInstancia().getEdificiosByDocumentoDuenio("DNI31617676");
+		System.out.println("\nEdificios por DNI " + edificiosPorDNI.size());
 	}
 
 }

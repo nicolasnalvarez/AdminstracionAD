@@ -4,7 +4,10 @@ import daos.DuenioDAO;
 import daos.InquilinoDAO;
 import entities.PersonaEntity;
 import exceptions.PersonaException;
+import views.EdificioView;
 import views.PersonaView;
+
+import java.util.List;
 
 public class Persona {
 
@@ -48,4 +51,11 @@ public class Persona {
 		return DuenioDAO.getInstancia().getUnidadByDocumento(documento);
 	}
 
+	public List<Edificio> getEdificiosDuenio() throws PersonaException {
+		return DuenioDAO.getInstancia().getEdificiosByDocumento(documento);
+	}
+
+	public List<Edificio> getEdificiosInquilino() throws PersonaException {
+		return InquilinoDAO.getInstancia().getEdificiosByDocumento(documento);
+	}
 }

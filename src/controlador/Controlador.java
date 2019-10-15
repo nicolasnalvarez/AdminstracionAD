@@ -17,6 +17,7 @@ import views.UnidadView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Controlador {
 
@@ -98,7 +99,7 @@ public class Controlador {
 	}
 
 	/** OK */
-	public List<PersonaView> inquilinosPorUnidad(int codigo, String piso, String numero) throws UnidadException, EdificioException, PersonaException{
+	public List<PersonaView> inquilinosPorUnidad(int codigo, String piso, String numero) throws UnidadException, EdificioException, PersonaException {
 		List<PersonaView> resultado = new ArrayList<>();
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		List<Persona> inquilinos = unidad.getInquilinos();
@@ -132,7 +133,17 @@ public class Controlador {
 	public int generarReclamo(Reclamo reclamo, List<Imagen> imagenes) {
 		return reclamo.save(imagenes);
 	}
-	
+
+	public List<EdificioView> getEdificiosByDocumentoDuenio(String documento) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getEdificiosDuenio().stream().map(Edificio::toView).collect(Collectors.toList());
+	}
+
+	public List<EdificioView> getEdificiosByDocumentoInquilino(String documento) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getEdificiosInquilino().stream().map(Edificio::toView).collect(Collectors.toList());
+	}
+
 	/** OK */
 	private Edificio buscarEdificio(int codigo) throws EdificioException, UnidadException {
 		return EdificioDAO.getInstancia().findByID(codigo);
