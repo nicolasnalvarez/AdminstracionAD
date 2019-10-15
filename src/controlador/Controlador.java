@@ -9,6 +9,8 @@ import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import modelo.*;
+import request.ImagenRequest;
+import request.ReclamoRequest;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
@@ -127,14 +129,29 @@ public class Controlador {
 	}
 
 	public ReclamoView getReclamo(int idReclamo) {
-		return ReclamoDAO.getInstancia().getById(idReclamo).toView();
+		//TODO cambiar lo que recibe el endpoint de spring y la funcionalidad de aca para que se validen todos los ids
+        // de los campos asociados a Reclamo. Por ej documento, idEdificio, etc
+	    return ReclamoDAO.getInstancia().getById(idReclamo).toView();
 	}
 
-	public int generarReclamo(Reclamo reclamo, List<Imagen> imagenes) {
-		return reclamo.save(imagenes);
+	public int generarReclamo(ReclamoRequest reclamoRequest, List<ImagenRequest> imagenRequestList) throws EdificioException, PersonaException, UnidadException {
+	    Reclamo reclamo = reclamoRequestToReclamo(reclamoRequest);
+	    List<Imagen> imagenes = imagenRequestListToImagenList(imagenRequestList);
+	    return reclamo.save(imagenes);
 	}
 
-	public List<EdificioView> getEdificiosByDocumentoDuenio(String documento) throws PersonaException {
+	private Reclamo reclamoRequestToReclamo(ReclamoRequest reclamoRequest) throws PersonaException, EdificioException, UnidadException {
+        Persona persona = buscarPersona(reclamoRequest.getDocumento());
+        Unidad unidad = buscarUnidad(reclamoRequest.getIdUnidad());
+        Edificio edificio = buscarEdificio(reclamoRequest.getIdEdificio());
+        return new Reclamo(persona, edificio, unidad, reclamoRequest.getUbicacion(), reclamoRequest.getDescripcion());
+    }
+
+	private List<Imagen> imagenRequestListToImagenList(List<ImagenRequest> imagenRequestList) {
+		return imagenRequestList.stream().map(ir -> new Imagen(ir.getPath(), ir.getTipo())).collect(Collectors.toList());
+	}
+
+    public List<EdificioView> getEdificiosByDocumentoDuenio(String documento) throws PersonaException {
 		Persona persona = buscarPersona(documento);
 		return persona.getEdificiosDuenio().stream().map(Edificio::toView).collect(Collectors.toList());
 	}
@@ -144,16 +161,29 @@ public class Controlador {
 		return persona.getEdificiosInquilino().stream().map(Edificio::toView).collect(Collectors.toList());
 	}
 
-	/** OK */
-	private Edificio buscarEdificio(int codigo) throws EdificioException, UnidadException {
+	public List<UnidadView> getUnidadesByDocumentoDuenioYIdEdificio(String documento, int idEdificio) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getUnidadesDuenioByIdEdificio(idEdificio).stream().map(Unidad::toView).collect(Collectors.toList());
+	}
+
+	public List<UnidadView> getUnidadesByDocumentoInquilinoYIdEdificio(String documento, int idEdificio) throws PersonaException {
+		Persona persona = buscarPersona(documento);
+		return persona.getUnidadesInquilinoByIdEdificio(idEdificio).stream().map(Unidad::toView).collect(Collectors.toList());
+	}
+
+    private Edificio buscarEdificio(int codigo) throws EdificioException, UnidadException {
 		return EdificioDAO.getInstancia().findByID(codigo);
 	}
-	/** OK */
+
 	private Unidad buscarUnidad(int codigo, String piso, String numero) throws UnidadException, EdificioException{
-		return UnidadDAO.getInstancia().findById(codigo, piso, numero);
-	}	
-	/** OK */
-	private Persona buscarPersona(String documento) throws PersonaException {
+		return UnidadDAO.getInstancia().findByIdAndPisoAndNumero(codigo, piso, numero);
+	}
+
+    private Unidad buscarUnidad(int idUnidad) throws UnidadException, EdificioException{
+        return UnidadDAO.getInstancia().findById(idUnidad);
+    }
+
+    private Persona buscarPersona(String documento) throws PersonaException {
 		return PersonaDAO.getInstancia().findByID(documento);	
 	}
 }

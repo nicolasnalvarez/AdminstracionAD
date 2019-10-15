@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Reclamo {
 
-    //TODO analizar si conviene tener las entidades o solo recibir las keys de cada uno (por ej documento en Persona)
     private Integer idReclamo;
     private Persona persona;
     private Edificio edificio;
@@ -29,7 +28,6 @@ public class Reclamo {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.estado = Estado.nuevo;
     }
 
     public Reclamo(Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
@@ -38,7 +36,6 @@ public class Reclamo {
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.estado = Estado.nuevo;
     }
 
     public Integer getIdReclamo() {

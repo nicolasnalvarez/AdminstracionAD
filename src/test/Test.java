@@ -6,6 +6,8 @@ import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import modelo.*;
+import request.ImagenRequest;
+import request.ReclamoRequest;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
@@ -48,13 +50,19 @@ public class Test {
 		Persona persona = new Persona("DNI30979256", "Carlos");
 		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
 ;		Unidad unidad = new Unidad(3, "", "5", edificio);
-		Reclamo reclamoTest = new Reclamo(persona, edificio, unidad, "cocina", "Se rompio toda la cocina");
-		Imagen imagen = new Imagen(1, "test-path", "imagen", reclamoTest);
+		ReclamoRequest reclamoTest = new ReclamoRequest(persona.getDocumento(), edificio.getId(), unidad.getId(), "Lobby", "Se rompio la pared");
+		ImagenRequest imagen = new ImagenRequest("test-path", "imagen");
 		Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
 		System.out.println("\nSe guardo el reclamo correctamente");
 
 		List<EdificioView> edificiosPorDNI = Controlador.getInstancia().getEdificiosByDocumentoDuenio("DNI31617676");
 		System.out.println("\nEdificios por DNI " + edificiosPorDNI.size());
+
+		List<UnidadView> unidadesPorDNIDuenioYEdificio = Controlador.getInstancia().getUnidadesByDocumentoDuenioYIdEdificio("DNI31617676", 3);
+		System.out.println("\nUnidades por DNI Duenio " + unidadesPorDNIDuenioYEdificio.size());
+
+		List<UnidadView> unidadesPorDNIInquilinoYEdificio = Controlador.getInstancia().getUnidadesByDocumentoInquilinoYIdEdificio("DNI31617676", 2);
+		System.out.println("\nEdificios por DNI inquilino " + unidadesPorDNIInquilinoYEdificio.size());
 	}
 
 }

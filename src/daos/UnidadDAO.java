@@ -1,17 +1,16 @@
 package daos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import entities.UnidadEntity;
 import exceptions.EdificioException;
 import exceptions.UnidadException;
 import hibernate.HibernateUtil;
 import modelo.Edificio;
 import modelo.Unidad;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UnidadDAO {
 
@@ -41,7 +40,7 @@ public class UnidadDAO {
 			throw new UnidadException("No se pudieron recuperar las unidades");
 	}
 
-	public Unidad findById(int codigo, String piso, String numero) throws EdificioException, UnidadException {
+	public Unidad findByIdAndPisoAndNumero(int codigo, String piso, String numero) throws EdificioException, UnidadException {
 		Unidad resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
@@ -56,6 +55,18 @@ public class UnidadDAO {
 			return toNegocio(unidad);		}
 		else
 			throw new UnidadException("No se pudo recuperar las unidades");
+	}
+
+	public Unidad findById(int idUnidad) throws EdificioException, UnidadException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		UnidadEntity unidad = (UnidadEntity) s.createQuery("from UnidadEntity u where u.id = ?").setInteger(0, idUnidad).uniqueResult();
+		s.getTransaction().commit();
+		if(unidad != null) {
+			return toNegocio(unidad);		}
+		else
+			throw new UnidadException("No se pudo recuperar la unidad");
 	}
 	
 	public List<Unidad> getUnidadesByEdificio(Edificio edificio) throws UnidadException, EdificioException {

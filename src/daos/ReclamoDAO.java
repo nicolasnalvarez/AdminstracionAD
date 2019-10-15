@@ -42,7 +42,7 @@ public class ReclamoDAO {
         Session s = sf.getCurrentSession();
         s.beginTransaction();
         int id = (Integer) s.save(new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion()));
-        imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), imagen.getReclamo().toEntity())));
+        imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), reclamo.toEntity())));
         s.getTransaction().commit();
         return id;
     }

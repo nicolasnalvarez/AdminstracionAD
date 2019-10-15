@@ -81,4 +81,18 @@ public class InquilinoDAO {
 		}
 		return inquilinos.stream().map(de -> de.getUnidad().getEdificio().toNegocio()).collect(Collectors.toList());
 	}
+
+	public List<Unidad> getUnidadesByDocumentoYEdificio(String documento, int idEdificio) throws PersonaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<InquilinoEntity> inquilinos = (List<InquilinoEntity>) s.createQuery("from InquilinoEntity i where i.persona.documento = ?").setString(0, documento).list();
+		if (inquilinos == null) {
+			throw new PersonaException("No se pudo recuperar el inquilino");
+		}
+		return inquilinos.stream()
+				.filter(de -> de.getUnidad().getEdificio().getId().equals(idEdificio))
+				.map(de -> de.getUnidad().toNegocio())
+				.collect(Collectors.toList());
+	}
 }

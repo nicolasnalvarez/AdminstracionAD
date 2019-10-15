@@ -3,6 +3,7 @@ package modelo;
 import daos.DuenioDAO;
 import daos.InquilinoDAO;
 import entities.PersonaEntity;
+import entities.UnidadEntity;
 import exceptions.PersonaException;
 import views.EdificioView;
 import views.PersonaView;
@@ -57,5 +58,13 @@ public class Persona {
 
 	public List<Edificio> getEdificiosInquilino() throws PersonaException {
 		return InquilinoDAO.getInstancia().getEdificiosByDocumento(documento);
+	}
+
+	public List<Unidad> getUnidadesDuenioByIdEdificio(int idEdificio) throws PersonaException {
+		return DuenioDAO.getInstancia().getUnidadesByDocumentoYEdificio(documento, idEdificio);
+	}
+
+	public List<Unidad> getUnidadesInquilinoByIdEdificio(int idEdificio) throws PersonaException {
+		return InquilinoDAO.getInstancia().getUnidadesByDocumentoYEdificio(documento, idEdificio);
 	}
 }

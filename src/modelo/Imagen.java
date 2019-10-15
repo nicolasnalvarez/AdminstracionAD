@@ -10,11 +10,15 @@ public class Imagen {
 	private String tipo;
 	private Reclamo reclamo;
 
-	public Imagen(Integer id, String path, String tipo, Reclamo reclamo) {
-		this.id = id;
+	public Imagen(String path, String tipo, Reclamo reclamo) {
 		this.path = path;
 		this.tipo = tipo;
 		this.reclamo = reclamo;
+	}
+
+	public Imagen(String path, String tipo) {
+		this.path = path;
+		this.tipo = tipo;
 	}
 
 	public Integer getId() {
@@ -39,14 +43,6 @@ public class Imagen {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public Reclamo getReclamo() {
-		return reclamo;
-	}
-
-	public void setReclamo(Reclamo reclamo) {
-		this.reclamo = reclamo;
 	}
 
 	public ImagenView toView() {

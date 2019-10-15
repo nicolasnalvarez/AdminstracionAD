@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import entities.InquilinoEntity;
+import entities.UnidadEntity;
 import modelo.Edificio;
 import modelo.Unidad;
 import org.hibernate.Session;
@@ -68,5 +69,19 @@ public class DuenioDAO {
 			throw new PersonaException("No se pudo recuperar el dueño");
 		}
 		return duenios.stream().map(de -> de.getUnidad().getEdificio().toNegocio()).collect(Collectors.toList());
+	}
+
+	public List<Unidad> getUnidadesByDocumentoYEdificio(String documento, int idEdificio) throws PersonaException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<DuenioEntity> duenios = (List<DuenioEntity>) s.createQuery("from DuenioEntity d where d.persona.documento = ?").setString(0, documento).list();
+		if (duenios == null) {
+			throw new PersonaException("No se pudo recuperar el dueño");
+		}
+		return duenios.stream()
+				.filter(de -> de.getUnidad().getEdificio().getId().equals(idEdificio))
+				.map(de -> de.getUnidad().toNegocio())
+				.collect(Collectors.toList());
 	}
 }
