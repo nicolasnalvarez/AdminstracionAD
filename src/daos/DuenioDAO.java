@@ -25,6 +25,21 @@ public class DuenioDAO {
 		return instancia;
 	}
 
+	public Persona findByID(String documento) throws PersonaException {
+		Persona resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		DuenioEntity persona = (DuenioEntity) s.createQuery("from DuenioEntity p where p.persona.documento = ?").setString(0, documento).uniqueResult();
+		s.getTransaction().commit();
+		if(persona != null) {
+			resultado = toNegocio(persona);
+			return resultado;
+		}
+		else
+			throw new PersonaException("No existe una persona con el documento " + documento);
+
+	}
 	public List<Persona> getDueniosByUnidad(int id) throws PersonaException {
 		List<Persona> resultado = new ArrayList<>();
 
@@ -55,5 +70,14 @@ public class DuenioDAO {
 			throw new PersonaException("No se pudo recuperar el dueño");
 		}
 		return duenio.getUnidad().toNegocio();
+	}
+
+	Persona toNegocio(DuenioEntity i) throws PersonaException {
+		if(i != null) {
+			Persona persona = new Persona(i.getPersona().getDocumento(), i.getPersona().getNombre());
+			return persona;
+		} else {
+			throw new PersonaException("No se pudo recuperar el duenio");
+		}
 	}
 }

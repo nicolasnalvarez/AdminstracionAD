@@ -1,8 +1,10 @@
 package modelo;
 
 import daos.UsuarioDAO;
+import entities.UsuarioEntity;
 import exceptions.CambioPasswordException;
 import exceptions.UsuarioException;
+import views.UsuarioView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,13 +17,15 @@ public class Usuario {
     private boolean habilitado;
     private String[] ultimasPasswords;
     private int cantidadPasswords;
+    private int tipo_usuario;
 
-    public Usuario(String nombre, String password) {
+    public Usuario(String nombre, String password, int tipo_usuario) {
         this.nombre = nombre;
         this.password = password;
         this.ultimaFechaCambio = new Date(Calendar.getInstance().getTimeInMillis() - 3500000000l);
         this.ultimasPasswords = new String[10];
         this.cantidadPasswords = 0;
+        this.tipo_usuario = tipo_usuario;
     }
 
     public Usuario(String nombre, String password, boolean habilitado, Date ultimaFechaCambio, String[] ultimasPasswords, int cantidadPasswords) {
@@ -113,5 +117,15 @@ public class Usuario {
 
     public int getCantidadPasswords() {
         return cantidadPasswords;
+    }
+
+    public int getTipoUsuario() { return tipo_usuario;}
+
+    public UsuarioView toView() {
+        return new UsuarioView(nombre,password,tipo_usuario);
+    }
+
+    public UsuarioEntity toEntity() {
+        return new UsuarioEntity(nombre,password,tipo_usuario);
     }
 }

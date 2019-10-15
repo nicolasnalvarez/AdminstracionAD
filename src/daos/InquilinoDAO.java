@@ -29,6 +29,23 @@ public class InquilinoDAO {
 		return instancia;
 	}
 
+
+	public Persona findByID(String documento) throws PersonaException {
+		Persona resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		InquilinoEntity persona = (InquilinoEntity) s.createQuery("from InquilinoEntity p where p.persona.documento = ?").setString(0, documento).setMaxResults(1).uniqueResult();
+		s.getTransaction().commit();
+		if(persona != null) {
+			resultado = toNegocio(persona);
+			return resultado;
+		}
+		else
+			throw new PersonaException("No existe una persona con el documento " + documento);
+
+	}
+
 	public List<Persona> getInquilinosByUnidad(int id) throws PersonaException {
 		List<Persona> resultado = new ArrayList<Persona>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();

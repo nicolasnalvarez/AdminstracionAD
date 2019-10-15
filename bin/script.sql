@@ -24,6 +24,7 @@ CREATE TABLE usuarios(
 	[fecha_ultimo_cambio] [datetime] NULL,
 	[passwords_anteriores] [varbinary](255) NULL,
 	[cantidad_passwords] [int] NULL,
+	[tipo_usuario] [int] NOT NULL,
 PRIMARY KEY CLUSTERED
 (
 	[identificador] ASC

@@ -1,10 +1,6 @@
 package controlador;
 
-import daos.EdificioDAO;
-import daos.PersonaDAO;
-import daos.ReclamoDAO;
-import daos.UnidadDAO;
-import daos.UsuarioDAO;
+import daos.*;
 import modelo.*;
 import views.EdificioView;
 import views.PersonaView;
@@ -141,18 +137,58 @@ public class Controlador {
 		return PersonaDAO.getInstancia().findByID(documento);
 	}
 
+	/** OK */
+	private Persona buscarInquilino(String documento) throws PersonaException {
+		return InquilinoDAO.getInstancia().findByID(documento);
+	}
+
+	/** OK */
+	private Persona buscarDuenio(String documento) throws PersonaException {
+		return DuenioDAO.getInstancia().findByID(documento);
+	}
+
 	/**
 	 * Registro de usuario
 	 *
 	 */
 	// compara contra la tabla de personas para ver si existe ahi, de existir permitir el registro.
 	public void registrar(String dni, String nombre, String password) throws PersonaException {
-		Persona nuevoUsuario = buscarPersona(dni);
+
+		try {
+			// SI ES INQUILINO TIPO USUARIO ---> 1
+			Persona nuevoUsuario = buscarInquilino(dni);
+			Usuario usuario = new Usuario(nombre, password, 1);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}catch (PersonaException pex){
+			// SI ES DUENIO TIPO USUARIO ---> 2
+			Persona nuevoUsuario = buscarDuenio(dni);
+			Usuario usuario = new Usuario(nombre, password, 2);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}
+		/*
+		Persona nuevoUsuario = buscarInquilino(dni);
+		System.out.println(nuevoUsuario.getDocumento());
+		if (nuevoUsuario == null) {
+			nuevoUsuario = buscarDuenio(dni);
+			if (nuevoUsuario == null) {
+				System.out.println("No se puede registrr ese dni en el sistema");
+			} else {
+				Usuario usuario = new Usuario(nombre, password, 2);
+				UsuarioDAO.getInstancia().save(usuario);
+			}
+		} else {
+			Usuario usuario = new Usuario(nombre, password, 1);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}*/
+		/*
 		System.out.println(nuevoUsuario.getNombre());
 		if (nuevoUsuario != null){
 			Usuario usuario = new Usuario(nombre,password);
 			UsuarioDAO.getInstancia().save(usuario);
-		}
+		}*/
 
 
 	}

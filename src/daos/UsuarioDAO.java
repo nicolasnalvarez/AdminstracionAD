@@ -90,6 +90,7 @@ public class UsuarioDAO {
         usuario.setHabilitado("Si");
         usuario.setNombre(u.getNombre());
         usuario.setPassword(u.getPassword());
+        usuario.setTipoUsuario(u.getTipoUsuario());
         return usuario;
     }
 

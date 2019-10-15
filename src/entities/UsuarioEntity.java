@@ -1,5 +1,7 @@
 package entities;
 
+import modelo.Usuario;
+
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -28,6 +30,8 @@ public class UsuarioEntity {
     private String[] passwordsAnteriores;
     @Column(name="cantidad_passwords")
     private int cantidad;
+    @Column(name="tipo_usuario")
+    private int tipo_usuario;
 
     public UsuarioEntity(){
         this.passwordsAnteriores = new String[10];
@@ -95,4 +99,19 @@ public class UsuarioEntity {
         this.passwordsAnteriores = passwordsAnteriores;
     }
 
+    public int getTipoUsuario() {return tipo_usuario; }
+
+    public void setTipoUsuario(int tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
+    }
+
+    public UsuarioEntity(String nombre, String password, int tipo_usuario) {
+        this.nombre = nombre;
+        this.password = password;
+        this.tipo_usuario=tipo_usuario;
+    }
+
+    public Usuario toNegocio() {
+        return new Usuario(nombre,password,tipo_usuario);
+    }
 }

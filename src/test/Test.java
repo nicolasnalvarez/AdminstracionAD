@@ -39,17 +39,20 @@ public class Test {
 		List<PersonaView> iu = Controlador.getInstancia().inquilinosPorUnidad(1, "1", "1");
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
-		//Registro con persona que existe
-		//Controlador.getInstancia().registrar("DNI92956906","lucas","3357");
+		//Registro con persona que existe (Inquilino)
+		//Controlador.getInstancia().registrar("DNI31064776","lucas","3357");
+
+		//Registro con persona que existe (Dueño)
+		Controlador.getInstancia().registrar("DNI31046277","BBB","12121");
 
 		//Login
 
 		//Controlador.getInstancia().login("pEPITO","123456");
 		//Login Correcto
-		Controlador.getInstancia().login("lucas","3357");
+		//Controlador.getInstancia().login("lucas","3357");
 
 		//Login Incorrecto
-		Controlador.getInstancia().login("lucas","11111111");
+		//Controlador.getInstancia().login("lucas","11111111");
 
 		//Registro con persona que no existe
 		//Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
