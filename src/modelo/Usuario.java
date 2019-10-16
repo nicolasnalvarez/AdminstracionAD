@@ -37,6 +37,16 @@ public class Usuario {
         this.cantidadPasswords = cantidadPasswords;
     }
 
+    public Usuario(String nombre, String password, boolean habilitado, Date ultimaFechaCambio, String[] ultimasPasswords, int cantidadPasswords, int tipo_usuario) {
+        this.nombre = nombre;
+        this.password = password;
+        this.habilitado = habilitado;
+        this.ultimaFechaCambio = ultimaFechaCambio;
+        this.ultimasPasswords = ultimasPasswords;
+        this.cantidadPasswords = cantidadPasswords;
+        this.tipo_usuario = tipo_usuario;
+    }
+
     public void deshabilitarUsario() throws UsuarioException{
         if(this.habilitado){
             this.habilitado = false;

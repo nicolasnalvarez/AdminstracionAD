@@ -95,11 +95,11 @@ public class UsuarioDAO {
     }
 
 
-    Usuario toNegocio(UsuarioEntity usuario){
+    Usuario toNegocio(UsuarioEntity usuario) throws UsuarioException{
         boolean habilitado = false;
         if(usuario.getHabilitado().equals("Si"))
             habilitado = true;
-        Usuario resultado = new Usuario(usuario.getNombre(), usuario.getPassword(), habilitado, usuario.getUltimaFechaCambio(), usuario.getPasswordsAnteriores(), usuario.getCantidad());
+        Usuario resultado = new Usuario(usuario.getNombre(), usuario.getPassword(), habilitado, usuario.getUltimaFechaCambio(), usuario.getPasswordsAnteriores(), usuario.getCantidad(), usuario.getTipoUsuario());
         return resultado;
     }
 }

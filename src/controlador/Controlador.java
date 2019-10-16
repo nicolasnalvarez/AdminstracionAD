@@ -2,13 +2,9 @@ package controlador;
 
 import daos.*;
 import modelo.*;
-import views.EdificioView;
-import views.PersonaView;
-import views.ReclamoView;
-import views.UnidadView;
+import views.*;
 import exceptions.*;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -193,17 +189,23 @@ public class Controlador {
 
 	}
 
+
+
 	/**
 	 * Verificacion de login si existe
-	 * */
-	public boolean login(String nombre, String password) throws LoginException, CambioPasswordException, UsuarioException{
+	 *
+	 * @return*/
+	public UsuarioView login(String nombre, String password) throws LoginException, CambioPasswordException, UsuarioException{
 		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
 		if(usuario.getPassword().equals(password)){
 			/*Ver si le metemos esta logica para agregar expiracion de la pass"
 			if(usuario.debeCambiar()) {
 				throw new CambioPasswordException("La password esta vencida, debe cambiarla");
 			}*/
-			return true;
+
+			return usuario.toView();
+
+			//return true;
 		}
 		else{
 			throw new LoginException("Los datos ingresado no son corrector, reingrese");

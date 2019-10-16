@@ -41,12 +41,13 @@ public class Test {
 
 		//Registro con persona que existe (Inquilino)
 		//Controlador.getInstancia().registrar("DNI31064776","lucas","3357");
+		//Controlador.getInstancia().registrar("DNI31064775","lucas","3357");
 
 		//Registro con persona que existe (Dueño)
-		Controlador.getInstancia().registrar("DNI31046277","BBB","12121");
+		//Controlador.getInstancia().registrar("DNI31046277","BBB","12121");
 
 		//Login
-
+		System.out.println(Controlador.getInstancia().login("BBB","12121"));
 		//Controlador.getInstancia().login("pEPITO","123456");
 		//Login Correcto
 		//Controlador.getInstancia().login("lucas","3357");

@@ -27,4 +27,8 @@ public class UsuarioView {
         return tipo_usuario;
     }
 
+    public String toString() {
+        return nombre + " " + tipo_usuario;
+    }
+
 }
