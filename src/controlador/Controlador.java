@@ -1,20 +1,11 @@
 package controlador;
 
-import daos.EdificioDAO;
-import daos.PersonaDAO;
-import daos.ReclamoDAO;
-import daos.UnidadDAO;
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
+import daos.*;
+import exceptions.*;
 import modelo.*;
 import request.ImagenRequest;
 import request.ReclamoRequest;
-import views.EdificioView;
-import views.PersonaView;
-import views.ReclamoView;
-import views.UnidadView;
+import views.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -186,4 +177,94 @@ public class Controlador {
     private Persona buscarPersona(String documento) throws PersonaException {
 		return PersonaDAO.getInstancia().findByID(documento);	
 	}
+
+	/** OK */
+	private Persona buscarInquilino(String documento) throws PersonaException {
+		return InquilinoDAO.getInstancia().findByID(documento);
+	}
+
+	/** OK */
+	private Persona buscarDuenio(String documento) throws PersonaException {
+		return DuenioDAO.getInstancia().findByID(documento);
+	}
+
+	/**
+	 * Registro de usuario
+	 *
+	 */
+	// compara contra la tabla de personas para ver si existe ahi, de existir permitir el registro.
+	public void registrar(String dni, String nombre, String password) throws PersonaException {
+
+		try {
+			// SI ES INQUILINO TIPO USUARIO ---> 1
+			Persona nuevoUsuario = buscarInquilino(dni);
+			Usuario usuario = new Usuario(nombre, password, 1);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}catch (PersonaException pex){
+			// SI ES DUENIO TIPO USUARIO ---> 2
+			Persona nuevoUsuario = buscarDuenio(dni);
+			Usuario usuario = new Usuario(nombre, password, 2);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}
+		/*
+		Persona nuevoUsuario = buscarInquilino(dni);
+		System.out.println(nuevoUsuario.getDocumento());
+		if (nuevoUsuario == null) {
+			nuevoUsuario = buscarDuenio(dni);
+			if (nuevoUsuario == null) {
+				System.out.println("No se puede registrr ese dni en el sistema");
+			} else {
+				Usuario usuario = new Usuario(nombre, password, 2);
+				UsuarioDAO.getInstancia().save(usuario);
+			}
+		} else {
+			Usuario usuario = new Usuario(nombre, password, 1);
+			UsuarioDAO.getInstancia().save(usuario);
+
+		}*/
+		/*
+		System.out.println(nuevoUsuario.getNombre());
+		if (nuevoUsuario != null){
+			Usuario usuario = new Usuario(nombre,password);
+			UsuarioDAO.getInstancia().save(usuario);
+		}*/
+
+
+	}
+
+
+
+	/**
+	 * Verificacion de login si existe
+	 *
+	 * @return*/
+	public UsuarioView login(String nombre, String password) throws LoginException, CambioPasswordException, UsuarioException{
+		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
+		if(usuario.getPassword().equals(password)){
+			/*Ver si le metemos esta logica para agregar expiracion de la pass"
+			if(usuario.debeCambiar()) {
+				throw new CambioPasswordException("La password esta vencida, debe cambiarla");
+			}*/
+
+			return usuario.toView();
+
+			//return true;
+		}
+		else{
+			throw new LoginException("Los datos ingresado no son corrector, reingrese");
+		}
+	}
+	/**
+	 * Cambio de password
+	 * */
+	public void cambioPassword(String nombre, String password) throws CambioPasswordException, UsuarioException{
+		Usuario usuario = UsuarioDAO.getInstancia().getUsuarioByNombre(nombre);
+		usuario.actualizoPassword(password);
+	}
+
+
+
+
 }

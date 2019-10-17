@@ -1,20 +1,17 @@
 package daos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import entities.InquilinoEntity;
-import entities.UnidadEntity;
+import entities.DuenioEntity;
+import exceptions.PersonaException;
+import hibernate.HibernateUtil;
 import modelo.Edificio;
+import modelo.Persona;
 import modelo.Unidad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.DuenioEntity;
-import exceptions.PersonaException;
-import hibernate.HibernateUtil;
-import modelo.Persona;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DuenioDAO {
 
@@ -28,6 +25,21 @@ public class DuenioDAO {
 		return instancia;
 	}
 
+	public Persona findByID(String documento) throws PersonaException {
+		Persona resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		DuenioEntity persona = (DuenioEntity) s.createQuery("from DuenioEntity p where p.persona.documento = ?").setString(0, documento).uniqueResult();
+		s.getTransaction().commit();
+		if(persona != null) {
+			resultado = toNegocio(persona);
+			return resultado;
+		}
+		else
+			throw new PersonaException("No existe una persona con el documento " + documento);
+
+	}
 	public List<Persona> getDueniosByUnidad(int id) throws PersonaException {
 		List<Persona> resultado = new ArrayList<>();
 
@@ -83,5 +95,14 @@ public class DuenioDAO {
 				.filter(de -> de.getUnidad().getEdificio().getId().equals(idEdificio))
 				.map(de -> de.getUnidad().toNegocio())
 				.collect(Collectors.toList());
+	}
+
+	Persona toNegocio(DuenioEntity i) throws PersonaException {
+		if(i != null) {
+			Persona persona = new Persona(i.getPersona().getDocumento(), i.getPersona().getNombre());
+			return persona;
+		} else {
+			throw new PersonaException("No se pudo recuperar el duenio");
+		}
 	}
 }

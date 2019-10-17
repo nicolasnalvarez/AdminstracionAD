@@ -12,7 +12,6 @@
       <root url="jar://$PROJECT_DIR$/../lib/javassist-3.4.GA.jar!/" />
       <root url="jar://$PROJECT_DIR$/../lib/jta-1.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/../lib/jtds-1.2.5.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../lib/sqljdbc4.jar!/" />
       <root url="jar://$PROJECT_DIR$/../lib/slf4j-api-1.5.6.jar!/" />
       <root url="jar://$PROJECT_DIR$/../lib/slf4j-simple-1.5.6.jar!/" />
     </CLASSES>

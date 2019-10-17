@@ -1,16 +1,14 @@
 package test;
 
 import controlador.Controlador;
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
-import modelo.*;
+import exceptions.*;
+import modelo.Edificio;
+import modelo.Persona;
+import modelo.Unidad;
 import request.ImagenRequest;
 import request.ReclamoRequest;
 import views.EdificioView;
 import views.PersonaView;
-import views.ReclamoView;
 import views.UnidadView;
 
 import java.util.Collections;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class Test {
 
-	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException {
+	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException, LoginException, UsuarioException, CambioPasswordException {
 		
 		List<EdificioView> edificios = Controlador.getInstancia().getEdificios();
 		System.out.println("Edificios " + edificios.size());
@@ -44,8 +42,24 @@ public class Test {
 		List<PersonaView> iu = Controlador.getInstancia().inquilinosPorUnidad(1, "1", "1");
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
-		List<ReclamoView> re = Controlador.getInstancia().todosLosReclamos();
-		System.out.println("\nReclamos " + re.size());
+		//Registro con persona que existe (Inquilino)
+		//Controlador.getInstancia().registrar("DNI31064776","lucas","3357");
+		//Controlador.getInstancia().registrar("DNI31064775","lucas","3357");
+
+		//Registro con persona que existe (Dueño)
+		//Controlador.getInstancia().registrar("DNI31046277","BBB","12121");
+
+		//Login
+		System.out.println(Controlador.getInstancia().login("BBB","12121"));
+		//Controlador.getInstancia().login("pEPITO","123456");
+		//Login Correcto
+		//Controlador.getInstancia().login("lucas","3357");
+
+		//Login Incorrecto
+		//Controlador.getInstancia().login("lucas","11111111");
+
+		//Registro con persona que no existe
+		//Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
 
 		Persona persona = new Persona("DNI30979256", "Carlos");
 		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");

@@ -42,5 +42,6 @@ public class InquilinoEntity {
 	public void setPersona(PersonaEntity persona) {
 		this.persona = persona;
 	}
+
 	
 }
