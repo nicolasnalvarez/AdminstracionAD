@@ -6,6 +6,7 @@ import hibernate.HibernateUtil;
 import modelo.Edificio;
 import modelo.Persona;
 import modelo.Unidad;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -30,7 +31,7 @@ public class DuenioDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		DuenioEntity persona = (DuenioEntity) s.createQuery("from DuenioEntity p where p.persona.documento = ?").setString(0, documento).uniqueResult();
+		DuenioEntity persona = (DuenioEntity) s.createQuery("from DuenioEntity p where p.persona.documento = ?").setString(0, documento).setMaxResults(1).uniqueResult();
 		s.getTransaction().commit();
 		if(persona != null) {
 			resultado = toNegocio(persona);
