@@ -40,7 +40,7 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
 		//Registro con persona que existe (Inquilino)
-		//Controlador.getInstancia().registrar("DNI31064776","lucas","3357");
+		Controlador.getInstancia().registrar("DNI31032143","PEPEPEPE","3357","lala@lala.com");
 		//Controlador.getInstancia().registrar("DNI31064775","lucas","3357");
 
 		//Registro con persona que existe (Dueño)
@@ -48,7 +48,7 @@ public class Test {
 
 		//Login
 		//Controlador.getInstancia().cambioPassword("BBB","12345678");
-		System.out.println(Controlador.getInstancia().login("BBB","12345678"));
+		//System.out.println(Controlador.getInstancia().login("BBB","12345678"));
 		//Controlador.getInstancia().login("pEPITO","123456");
 		//Login Correcto
 		//Controlador.getInstancia().login("lucas","3357");

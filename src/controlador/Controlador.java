@@ -164,20 +164,20 @@ public class Controlador {
 	 *
 	 */
 	// compara contra la tabla de personas para ver si existe ahi, de existir permitir el registro.
-	public void registrar(String dni, String nombre, String password) throws PersonaException, UsuarioException {
+	public void registrar(String dni, String nombre, String password, String email) throws PersonaException, UsuarioException {
 
 		if (!validarUsuario(nombre)) {
 
 			try {
 				// SI ES INQUILINO TIPO USUARIO ---> 1
 				Persona nuevoUsuario = buscarInquilino(dni);
-				Usuario usuario = new Usuario(nombre, password, 1);
+				Usuario usuario = new Usuario(nombre, password, 1, dni, email);
 				UsuarioDAO.getInstancia().save(usuario);
 
 			} catch (PersonaException pex) {
 				// SI ES DUENIO TIPO USUARIO ---> 2
 				Persona nuevoUsuario = buscarDuenio(dni);
-				Usuario usuario = new Usuario(nombre, password, 2);
+				Usuario usuario = new Usuario(nombre, password, 2, dni, email);
 				UsuarioDAO.getInstancia().save(usuario);
 
 			}

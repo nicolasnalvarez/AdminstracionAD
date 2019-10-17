@@ -91,6 +91,8 @@ public class UsuarioDAO {
         usuario.setNombre(u.getNombre());
         usuario.setPassword(u.getPassword());
         usuario.setTipoUsuario(u.getTipoUsuario());
+        usuario.setDni(u.getDni());
+        usuario.setEmail(u.getEmail());
         return usuario;
     }
 
@@ -99,7 +101,7 @@ public class UsuarioDAO {
         boolean habilitado = false;
         if(usuario.getHabilitado().equals("Si"))
             habilitado = true;
-        Usuario resultado = new Usuario(usuario.getNombre(), usuario.getPassword(), habilitado, usuario.getUltimaFechaCambio(), usuario.getPasswordsAnteriores(), usuario.getCantidad(), usuario.getTipoUsuario());
+        Usuario resultado = new Usuario(usuario.getNombre(), usuario.getPassword(), habilitado, usuario.getUltimaFechaCambio(), usuario.getPasswordsAnteriores(), usuario.getCantidad(), usuario.getTipoUsuario(), usuario.getDni(),usuario.getEmail());
         return resultado;
     }
 }
