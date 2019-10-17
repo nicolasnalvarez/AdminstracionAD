@@ -47,7 +47,8 @@ public class Test {
 		//Controlador.getInstancia().registrar("DNI31046277","BBB","12121");
 
 		//Login
-		System.out.println(Controlador.getInstancia().login("BBB","12121"));
+		//Controlador.getInstancia().cambioPassword("BBB","12345678");
+		System.out.println(Controlador.getInstancia().login("BBB","12345678"));
 		//Controlador.getInstancia().login("pEPITO","123456");
 		//Login Correcto
 		//Controlador.getInstancia().login("lucas","3357");
