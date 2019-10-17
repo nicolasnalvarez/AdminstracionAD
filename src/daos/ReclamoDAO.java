@@ -9,8 +9,8 @@ import modelo.Reclamo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReclamoDAO {
 
@@ -24,19 +24,6 @@ public class ReclamoDAO {
         return instancia;
     }
 
-    public List<Reclamo> getAll() throws ReclamoException {
-        List<Reclamo> resultado = new ArrayList<>();
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session s = sf.getCurrentSession();
-        s.beginTransaction();
-        List<ReclamoEntity> reclamos = s.createQuery("from ReclamoEntity").list();
-        for (ReclamoEntity e : reclamos) {
-            resultado.add(this.toNegocio(e));
-        }
-        s.getTransaction().commit();
-        return resultado;
-    }
-
     public int save(Reclamo reclamo, List<Imagen> imagenes) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.getCurrentSession();
@@ -47,20 +34,27 @@ public class ReclamoDAO {
         return id;
     }
 
-    private Reclamo toNegocio(ReclamoEntity reclamoEntity) throws ReclamoException {
-        if (reclamoEntity != null) {
-            return new Reclamo(reclamoEntity.getId(), reclamoEntity.getPersona().toNegocio(), reclamoEntity.getEdificio().toNegocio(), reclamoEntity.getUnidad().toNegocio(), reclamoEntity.getUbicacion(), reclamoEntity.getDescripcion());
-        } else {
-            throw new ReclamoException("No se pudieron recuperar los reclamos");
-        }
-    }
-
-    public Reclamo getById(int idReclamo) {
+    public Reclamo getById(int idReclamo) throws ReclamoException {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.getCurrentSession();
         s.beginTransaction();
         ReclamoEntity reclamo = (ReclamoEntity) s.createQuery("from ReclamoEntity r where r.id = ?").setInteger(0, idReclamo).uniqueResult();
         s.getTransaction().commit();
+        if (reclamo == null) {
+            throw new ReclamoException("No existe el reclamo con id " + idReclamo);
+        }
         return reclamo.toNegocio();
+    }
+
+    public List<Reclamo> getByDNI(String documento) throws ReclamoException {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session s = sf.getCurrentSession();
+        s.beginTransaction();
+        List<ReclamoEntity> reclamos = (List<ReclamoEntity>) s.createQuery("from ReclamoEntity r where r.persona.documento = ?").setString(0, documento).list();
+        s.getTransaction().commit();
+        if (reclamos == null || reclamos.isEmpty()) {
+            throw new ReclamoException("No existen reclamos para la persona con DNI " + documento);
+        }
+        return reclamos.stream().map(ReclamoEntity::toNegocio).collect(Collectors.toList());
     }
 }

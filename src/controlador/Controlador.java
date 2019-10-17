@@ -111,18 +111,13 @@ public class Controlador {
 		return persona.getUnidadDuenio().toView();
 	}
 
-	public List<ReclamoView> todosLosReclamos() throws ReclamoException {
-		List<ReclamoView> resultado = new ArrayList<>();
-		List<Reclamo> reclamos = ReclamoDAO.getInstancia().getAll();
-		for(Reclamo reclamo : reclamos)
-			resultado.add(reclamo.toView());
-		return resultado;
+	public ReclamoView getReclamo(int idReclamo) throws ReclamoException {
+	    return ReclamoDAO.getInstancia().getById(idReclamo).toView();
 	}
 
-	public ReclamoView getReclamo(int idReclamo) {
-		//TODO cambiar lo que recibe el endpoint de spring y la funcionalidad de aca para que se validen todos los ids
-        // de los campos asociados a Reclamo. Por ej documento, idEdificio, etc
-	    return ReclamoDAO.getInstancia().getById(idReclamo).toView();
+	public List<ReclamoView> getReclamosByDNI(String documento) throws ReclamoException {
+		List<Reclamo> reclamos = ReclamoDAO.getInstancia().getByDNI(documento);
+		return reclamos.stream().map(Reclamo::toView).collect(Collectors.toList());
 	}
 
 	public int generarReclamo(ReclamoRequest reclamoRequest, List<ImagenRequest> imagenRequestList) throws EdificioException, PersonaException, UnidadException {

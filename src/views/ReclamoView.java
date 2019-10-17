@@ -10,7 +10,7 @@ public class ReclamoView {
     private Integer idUnidad;
     private String ubicacion;
     private String descripcion;
-    private Estado estado;
+    private String estado;
 
     public ReclamoView() {}
 
@@ -21,7 +21,7 @@ public class ReclamoView {
         this.idUnidad = idUnidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.estado = estado.name();
     }
 
     public Integer getId() {
@@ -70,5 +70,13 @@ public class ReclamoView {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

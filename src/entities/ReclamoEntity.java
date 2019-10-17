@@ -90,6 +90,6 @@ public class ReclamoEntity {
     }
 
     public Reclamo toNegocio() {
-        return new Reclamo(id, persona.toNegocio(), edificio.toNegocio(), unidad.toNegocio(), ubicacion, descripcion);
+        return new Reclamo(id, persona.toNegocio(), edificio.toNegocio(), unidad.toNegocio(), ubicacion, descripcion, estado);
     }
 }

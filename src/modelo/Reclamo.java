@@ -21,13 +21,14 @@ public class Reclamo {
 
     }
 
-    public Reclamo(Integer idReclamo, Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
+    public Reclamo(Integer idReclamo, Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion, String estado) {
         this.idReclamo = idReclamo;
         this.persona = persona;
         this.edificio = edificio;
         this.unidad = unidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
+        this.estado = Estado.valueOf(estado);
     }
 
     public Reclamo(Persona persona, Edificio edificio, Unidad unidad, String ubicacion, String descripcion) {
