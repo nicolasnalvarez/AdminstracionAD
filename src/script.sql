@@ -25,6 +25,8 @@ CREATE TABLE usuarios(
 	[passwords_anteriores] [varbinary](255) NULL,
 	[cantidad_passwords] [int] NULL,
 	[tipo_usuario] [int] NOT NULL,
+	[dni] [varchar](255) NULL,
+	[email] [varchar](255) NULL,
 PRIMARY KEY CLUSTERED
 (
 	[identificador] ASC

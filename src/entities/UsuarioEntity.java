@@ -32,11 +32,17 @@ public class UsuarioEntity {
     private int cantidad;
     @Column(name="tipo_usuario")
     private int tipo_usuario;
+    private String email;
+    private String dni;
 
     public UsuarioEntity(){
         this.passwordsAnteriores = new String[10];
         this.cantidad = 0;
     }
+
+    public String getDni() {return dni;}
+
+    public String getEmail() {return email;}
 
     public String getNombre() {
         return nombre;
@@ -44,6 +50,13 @@ public class UsuarioEntity {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -105,13 +118,15 @@ public class UsuarioEntity {
         this.tipo_usuario = tipo_usuario;
     }
 
-    public UsuarioEntity(String nombre, String password, int tipo_usuario) {
+    public UsuarioEntity(String nombre, String password, int tipo_usuario, String dni, String email) {
         this.nombre = nombre;
         this.password = password;
         this.tipo_usuario=tipo_usuario;
+        this.dni = dni;
+        this.email = email;
     }
 
     public Usuario toNegocio() {
-        return new Usuario(nombre,password,tipo_usuario);
+        return new Usuario(nombre,password,tipo_usuario,dni,email);
     }
 }

@@ -18,14 +18,18 @@ public class Usuario {
     private String[] ultimasPasswords;
     private int cantidadPasswords;
     private int tipo_usuario;
+    private String dni;
+    private String email;
 
-    public Usuario(String nombre, String password, int tipo_usuario) {
+    public Usuario(String nombre, String password, int tipo_usuario, String dni, String email) {
         this.nombre = nombre;
         this.password = password;
         this.ultimaFechaCambio = new Date(Calendar.getInstance().getTimeInMillis() - 3500000000l);
         this.ultimasPasswords = new String[10];
         this.cantidadPasswords = 0;
         this.tipo_usuario = tipo_usuario;
+        this.dni = dni;
+        this.email = email;
     }
 
     public Usuario(String nombre, String password, boolean habilitado, Date ultimaFechaCambio, String[] ultimasPasswords, int cantidadPasswords) {
@@ -37,7 +41,7 @@ public class Usuario {
         this.cantidadPasswords = cantidadPasswords;
     }
 
-    public Usuario(String nombre, String password, boolean habilitado, Date ultimaFechaCambio, String[] ultimasPasswords, int cantidadPasswords, int tipo_usuario) {
+    public Usuario(String nombre, String password, boolean habilitado, Date ultimaFechaCambio, String[] ultimasPasswords, int cantidadPasswords, int tipo_usuario, String dni, String email) {
         this.nombre = nombre;
         this.password = password;
         this.habilitado = habilitado;
@@ -45,6 +49,8 @@ public class Usuario {
         this.ultimasPasswords = ultimasPasswords;
         this.cantidadPasswords = cantidadPasswords;
         this.tipo_usuario = tipo_usuario;
+        this.dni = dni;
+        this.email = email;
     }
 
     public void deshabilitarUsario() throws UsuarioException{
@@ -131,11 +137,19 @@ public class Usuario {
 
     public int getTipoUsuario() { return tipo_usuario;}
 
+    public String getDni() {
+        return dni;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public UsuarioView toView() {
-        return new UsuarioView(nombre,password,tipo_usuario);
+        return new UsuarioView(nombre,password,tipo_usuario,dni,email);
     }
 
     public UsuarioEntity toEntity() {
-        return new UsuarioEntity(nombre,password,tipo_usuario);
+        return new UsuarioEntity(nombre,password,tipo_usuario,dni,email);
     }
 }
