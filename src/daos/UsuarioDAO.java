@@ -72,7 +72,7 @@ public class UsuarioDAO {
         if(recuperado != null)
             return toNegocio(recuperado);
         else
-            throw new UsuarioException("No existe el usuaio " + nombre);
+            throw new UsuarioException("No existe el usuario " + nombre);
     }
 
     public void save(Usuario usuario){

@@ -188,25 +188,46 @@ public class Controlador {
 		return DuenioDAO.getInstancia().findByID(documento);
 	}
 
+	/** OK */
+	private Usuario buscarUsuario(String usuario) throws UsuarioException {
+		return UsuarioDAO.getInstancia().getUsuarioByNombre(usuario);
+	}
+
+
+
+	private boolean validarUsuario(String usuario) throws UsuarioException {
+		Usuario user = buscarUsuario(usuario);
+		if (user != null) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 	/**
 	 * Registro de usuario
 	 *
 	 */
 	// compara contra la tabla de personas para ver si existe ahi, de existir permitir el registro.
-	public void registrar(String dni, String nombre, String password) throws PersonaException {
+	public void registrar(String dni, String nombre, String password) throws PersonaException, UsuarioException {
 
-		try {
-			// SI ES INQUILINO TIPO USUARIO ---> 1
-			Persona nuevoUsuario = buscarInquilino(dni);
-			Usuario usuario = new Usuario(nombre, password, 1);
-			UsuarioDAO.getInstancia().save(usuario);
+		if (!validarUsuario(nombre)) {
 
-		}catch (PersonaException pex){
-			// SI ES DUENIO TIPO USUARIO ---> 2
-			Persona nuevoUsuario = buscarDuenio(dni);
-			Usuario usuario = new Usuario(nombre, password, 2);
-			UsuarioDAO.getInstancia().save(usuario);
+			try {
+				// SI ES INQUILINO TIPO USUARIO ---> 1
+				Persona nuevoUsuario = buscarInquilino(dni);
+				Usuario usuario = new Usuario(nombre, password, 1);
+				UsuarioDAO.getInstancia().save(usuario);
 
+			} catch (PersonaException pex) {
+				// SI ES DUENIO TIPO USUARIO ---> 2
+				Persona nuevoUsuario = buscarDuenio(dni);
+				Usuario usuario = new Usuario(nombre, password, 2);
+				UsuarioDAO.getInstancia().save(usuario);
+
+			}
+		} else {
+			throw new UsuarioException("El usuario ya se encuentra registrado.");
 		}
 		/*
 		Persona nuevoUsuario = buscarInquilino(dni);
