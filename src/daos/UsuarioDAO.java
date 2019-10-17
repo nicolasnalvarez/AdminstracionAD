@@ -67,12 +67,12 @@ public class UsuarioDAO {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.openSession();
         s.beginTransaction();
-        UsuarioEntity recuperado = (UsuarioEntity) s.createQuery("from UsuarioEntity where nombre = ?").setString(0, nombre).uniqueResult();
+        UsuarioEntity recuperado = (UsuarioEntity) s.createQuery("from UsuarioEntity where nombre = ?").setString(0, nombre).setMaxResults(1).uniqueResult();
         s.getTransaction().commit();
         if(recuperado != null)
             return toNegocio(recuperado);
         else
-            throw new UsuarioException("No existe el usuaio " + nombre);
+            throw new UsuarioException("No existe el usuario " + nombre);
     }
 
     public void save(Usuario usuario){
