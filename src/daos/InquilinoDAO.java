@@ -72,7 +72,7 @@ public class InquilinoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		InquilinoEntity inquilino = (InquilinoEntity) s.createQuery("from InquilinoEntity i where i.documento = ?").setString(0, documento).uniqueResult();
+		InquilinoEntity inquilino = (InquilinoEntity) s.createQuery("from InquilinoEntity i where i.persona.documento = ?").setString(0, documento).uniqueResult();
 		if (inquilino == null) {
 			throw new PersonaException("No se pudo recuperar el inquilino");
 		}
@@ -92,7 +92,7 @@ public class InquilinoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		List<InquilinoEntity> inquilinos = (List<InquilinoEntity>) s.createQuery("from InquilinoEntity i where i.documento = ?").setString(0, documento).list();
+		List<InquilinoEntity> inquilinos = (List<InquilinoEntity>) s.createQuery("from InquilinoEntity i where i.persona.documento = ?").setString(0, documento).list();
 		if (inquilinos == null) {
 			throw new PersonaException("No se pudieron recuperar los inquilinos");
 		}

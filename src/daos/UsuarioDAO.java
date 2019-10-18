@@ -104,4 +104,16 @@ public class UsuarioDAO {
         Usuario resultado = new Usuario(usuario.getNombre(), usuario.getPassword(), habilitado, usuario.getUltimaFechaCambio(), usuario.getPasswordsAnteriores(), usuario.getCantidad(), usuario.getTipoUsuario(), usuario.getDni(),usuario.getEmail());
         return resultado;
     }
+
+    public Usuario getUsuarioByNombreOrNull(String nombre) throws UsuarioException {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        UsuarioEntity recuperado = (UsuarioEntity) s.createQuery("from UsuarioEntity where nombre = ?").setString(0, nombre).setMaxResults(1).uniqueResult();
+        s.getTransaction().commit();
+        if(recuperado != null)
+            return toNegocio(recuperado);
+        else
+            return null;
+    }
 }

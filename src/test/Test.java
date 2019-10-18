@@ -10,6 +10,7 @@ import request.ReclamoRequest;
 import views.EdificioView;
 import views.PersonaView;
 import views.UnidadView;
+import views.UsuarioView;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,8 @@ public class Test {
 
 		//Registro con persona que existe (Inquilino)
 		Controlador.getInstancia().registrar("DNI31032143","PEPEPEPE","3357","lala@lala.com");
+		UsuarioView login = Controlador.getInstancia().login("PEPEPEPE", "3357");
+		System.out.println(login.getDni());
 		//Controlador.getInstancia().registrar("DNI31064775","lucas","3357");
 
 		//Registro con persona que existe (Dueño)
