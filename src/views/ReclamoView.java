@@ -7,7 +7,11 @@ public class ReclamoView {
     private Integer id;
     private String documento;
     private Integer idEdificio;
+    private String nombreEdificio;
+    private String direccionEdificio;
     private Integer idUnidad;
+    private String numeroUnidad;
+    private String pisoUnidad;
     private String ubicacion;
     private String descripcion;
     private String estado;
@@ -19,6 +23,20 @@ public class ReclamoView {
         this.documento = documento;
         this.idEdificio = idEdificio;
         this.idUnidad = idUnidad;
+        this.ubicacion = ubicacion;
+        this.descripcion = descripcion;
+        this.estado = estado.name();
+    }
+
+    public ReclamoView(Integer id, String documento, Integer idEdificio, String nombreEdificio, String direccionEdificio, Integer idUnidad, String numeroUnidad, String pisoUnidad, String ubicacion, String descripcion, Estado estado) {
+        this.id = id;
+        this.documento = documento;
+        this.idEdificio = idEdificio;
+        this.nombreEdificio = nombreEdificio;
+        this.direccionEdificio = direccionEdificio;
+        this.idUnidad = idUnidad;
+        this.numeroUnidad = numeroUnidad;
+        this.pisoUnidad = pisoUnidad;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         this.estado = estado.name();
@@ -79,4 +97,20 @@ public class ReclamoView {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getNombreEdificio() { return nombreEdificio; }
+
+    public void setNombreEdificio(String nombreEdificio) { this.nombreEdificio = nombreEdificio; }
+
+    public String getDireccionEdificio() { return direccionEdificio; }
+
+    public void setDireccionEdificio(String direccionEdificio) { this.direccionEdificio = direccionEdificio; }
+
+    public String getNumeroUnidad() { return numeroUnidad; }
+
+    public void setNumeroUnidad(String numeroUnidad) { this.numeroUnidad = numeroUnidad; }
+
+    public String getPisoUnidad() { return pisoUnidad; }
+
+    public void setPisoUnidad(String pisoUnidad) { this.pisoUnidad = pisoUnidad; }
 }

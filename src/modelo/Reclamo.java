@@ -96,7 +96,7 @@ public class Reclamo {
     }
 
     public ReclamoView toView() {
-        return new ReclamoView(idReclamo,persona.getDocumento(),edificio.getId(),unidad.getId(), ubicacion, descripcion, estado);
+        return new ReclamoView(idReclamo, persona.getDocumento(), edificio.getId(), edificio.getNombre(), edificio.getDireccion(), unidad.getId(), unidad.getNumero(), unidad.getPiso(), ubicacion, descripcion, estado);
     }
 
     public ReclamoEntity toEntity() {
