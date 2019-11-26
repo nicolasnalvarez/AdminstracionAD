@@ -1,11 +1,13 @@
 package modelo;
 
+import daos.ImagenDAO;
 import daos.ReclamoDAO;
 import entities.ReclamoEntity;
 import views.Estado;
 import views.ReclamoView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reclamo {
 
@@ -96,7 +98,9 @@ public class Reclamo {
     }
 
     public ReclamoView toView() {
-        return new ReclamoView(idReclamo, persona.getDocumento(), edificio.getId(), edificio.getNombre(), edificio.getDireccion(), unidad.getId(), unidad.getNumero(), unidad.getPiso(), ubicacion, descripcion, estado);
+        List<Imagen> imagenes = ImagenDAO.getInstancia().findByReclamoId(idReclamo);
+        List<String> imagesPaths = imagenes.stream().map(Imagen::getPath).collect(Collectors.toList());
+        return new ReclamoView(idReclamo, persona.getDocumento(), edificio.getId(), edificio.getNombre(), edificio.getDireccion(), unidad.getId(), unidad.getNumero(), unidad.getPiso(), ubicacion, descripcion, estado, imagesPaths);
     }
 
     public ReclamoEntity toEntity() {
