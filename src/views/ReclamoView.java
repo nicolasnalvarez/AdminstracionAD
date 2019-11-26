@@ -4,8 +4,6 @@ import java.util.List;
 
 public class ReclamoView {
 
-    //Seguro esto haya que cambiarlo y agregar entidades, por que por ej idEdificio no sirve de nada para el frontend
-
     private Integer id;
     private String documento;
     private Integer idEdificio;
@@ -21,17 +19,6 @@ public class ReclamoView {
 
     public ReclamoView() {}
 
-    public ReclamoView(Integer id, String documento, Integer idEdificio, Integer idUnidad, String ubicacion, String descripcion, Estado estado) {
-        this.id = id;
-        this.documento = documento;
-        this.idEdificio = idEdificio;
-        this.idUnidad = idUnidad;
-        this.ubicacion = ubicacion;
-        this.descripcion = descripcion;
-        this.estado = estado.name();
-
-    }
-
     public ReclamoView(Integer id, String documento, Integer idEdificio, String nombreEdificio, String direccionEdificio, Integer idUnidad, String numeroUnidad, String pisoUnidad, String ubicacion, String descripcion, Estado estado, List<String> imagesPaths) {
         this.id = id;
         this.documento = documento;
@@ -44,6 +31,7 @@ public class ReclamoView {
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
         this.estado = estado.name();
+        this.imagesPaths = imagesPaths;
     }
 
     public Integer getId() {
