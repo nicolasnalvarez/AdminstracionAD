@@ -41,6 +41,15 @@ public class ReclamoEntity {
         this.estado = Estado.nuevo.name();
     }
 
+    public ReclamoEntity(PersonaEntity persona, EdificioEntity edificio, UnidadEntity unidad, String ubicacion, String descripcion, String estado) {
+        this.persona = persona;
+        this.edificio = edificio;
+        this.unidad = unidad;
+        this.ubicacion = ubicacion;
+        this.descripcion = descripcion;
+        this.estado = estado;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -87,6 +96,10 @@ public class ReclamoEntity {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Reclamo toNegocio() {

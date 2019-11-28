@@ -7,10 +7,7 @@ import modelo.Persona;
 import modelo.Unidad;
 import request.ImagenRequest;
 import request.ReclamoRequest;
-import views.EdificioView;
-import views.PersonaView;
-import views.UnidadView;
-import views.UsuarioView;
+import views.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.List;
 public class Test {
 
 	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException, LoginException, UsuarioException, CambioPasswordException {
-		
+
 		List<EdificioView> edificios = Controlador.getInstancia().getEdificios();
 		System.out.println("Edificios " + edificios.size());
 		
@@ -44,9 +41,9 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 
 		//Registro con persona que existe (Inquilino)
-		Controlador.getInstancia().registrar("DNI31032143","PEPEPEPE","3357","lala@lala.com");
-		UsuarioView login = Controlador.getInstancia().login("PEPEPEPE", "3357");
-		System.out.println(login.getDni());
+		//Controlador.getInstancia().registrar("DNI31032143","PEPEPEPE","3357","lala@lala.com");
+		//UsuarioView login = Controlador.getInstancia().login("PEPEPEPE", "3357");
+		//System.out.println(login.getDni());
 		//Controlador.getInstancia().registrar("DNI31064775","lucas","3357");
 
 		//Registro con persona que existe (Dueño)
@@ -65,13 +62,23 @@ public class Test {
 		//Registro con persona que no existe
 		//Controlador.getInstancia().registrar("sadsdsasdsd22","pEPITO","123456");
 
-		Persona persona = new Persona("DNI30979256", "Carlos");
-		Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
-;		Unidad unidad = new Unidad(3, "", "5", edificio);
-		ReclamoRequest reclamoTest = new ReclamoRequest(persona.getDocumento(), edificio.getId(), unidad.getId(), "Lobby", "Se rompio la pared");
-		ImagenRequest imagen = new ImagenRequest("test-path", "imagen");
-		Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
-		System.out.println("\nSe guardo el reclamo correctamente");
+		//Persona persona = new Persona("DNI30979256", "Carlos");
+		//Edificio edificio = new Edificio(1, "nicolas", "calle falsa 123");
+;		//Unidad unidad = new Unidad(3, "", "5", edificio);
+		//ReclamoRequest reclamoTest = new ReclamoRequest(persona.getDocumento(), edificio.getId(), unidad.getId(), "Lobby", "Se rompio la pared");
+		//ImagenRequest imagen = new ImagenRequest("test-path", "imagen");
+		//Controlador.getInstancia().generarReclamo(reclamoTest, Collections.singletonList(imagen));
+		//System.out.println("\nSe guardo el reclamo correctamente");
+
+		//UsuarioView login = Controlador.getInstancia().login("PEPEPEPE", "3357");
+		//System.out.println(login.getDni());
+		/*
+		ReclamoView reclamo = Controlador.getInstancia().getReclamo(2);
+		Controlador.getInstancia().cambiarEstado(2,"sdasd");
+		System.out.println(reclamo.getImagesPaths());
+		System.out.println(reclamo.getEstado());
+		*/
+		Controlador.getInstancia().registrar("DNI31046277","admin","admin","admin@admin.com");
 
 		List<EdificioView> edificiosPorDNI = Controlador.getInstancia().getEdificiosByDocumentoDuenio("DNI31617676");
 		System.out.println("\nEdificios por DNI " + edificiosPorDNI.size());

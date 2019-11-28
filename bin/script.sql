@@ -33,6 +33,9 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+
+
+
 insert into edificios (nombre, direccion) values ('SLS Puerto Madero','Mogliani 425')
 insert into edificios (nombre, direccion) values ('The Link Towers','Arrayanes 1230')
 insert into edificios (nombre, direccion) values ('The Fire Place','Bombares 50')

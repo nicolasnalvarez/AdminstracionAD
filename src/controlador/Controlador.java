@@ -115,6 +115,13 @@ public class Controlador {
 	    return ReclamoDAO.getInstancia().getById(idReclamo).toView();
 	}
 
+
+	public void cambiarEstado(ReclamoView nuevo) throws ReclamoException {
+		Reclamo reclamo = ReclamoDAO.getInstancia().getById(nuevo.getId());
+		reclamo.update();
+		//ReclamoDAO.getInstancia().updateEstado(reclamo,nuevoEstado);
+	}
+
 	public List<ReclamoView> getReclamosByDNI(String documento) throws ReclamoException {
 		List<Reclamo> reclamos = ReclamoDAO.getInstancia().getByDNI(documento);
 		return reclamos.stream().map(Reclamo::toView).collect(Collectors.toList());
@@ -124,6 +131,11 @@ public class Controlador {
 	    Reclamo reclamo = reclamoRequestToReclamo(reclamoRequest);
 	    List<Imagen> imagenes = imagenRequestListToImagenList(imagenRequestList);
 	    return reclamo.save(imagenes);
+	}
+
+	public void actualizarReclamo(ReclamoView recibido) throws ReclamoException {
+		Reclamo reclamo = ReclamoDAO.getInstancia().getById(recibido.getId());
+		reclamo.update();
 	}
 
 	private Reclamo reclamoRequestToReclamo(ReclamoRequest reclamoRequest) throws PersonaException, EdificioException, UnidadException {

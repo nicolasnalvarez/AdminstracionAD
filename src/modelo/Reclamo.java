@@ -41,6 +41,10 @@ public class Reclamo {
         this.descripcion = descripcion;
     }
 
+    public void update(){
+        ReclamoDAO.getInstancia().update(this);
+    }
+
     public Integer getIdReclamo() {
         return idReclamo;
     }

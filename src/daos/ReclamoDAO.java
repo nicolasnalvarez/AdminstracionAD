@@ -2,13 +2,18 @@ package daos;
 
 import entities.ImagenEntity;
 import entities.ReclamoEntity;
+import entities.UsuarioEntity;
 import exceptions.ReclamoException;
+import exceptions.UsuarioException;
 import hibernate.HibernateUtil;
 import modelo.Imagen;
 import modelo.Reclamo;
+import modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import views.ReclamoView;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +37,21 @@ public class ReclamoDAO {
         imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), reclamo.toEntity())));
         s.getTransaction().commit();
         return id;
+    }
+
+
+    public void update(Reclamo reclamo) {
+        ReclamoEntity re = this.toEntity(reclamo);
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session s = sf.openSession();
+        s.beginTransaction();
+        s.update(re);
+        s.getTransaction().commit();
+    }
+
+    ReclamoEntity toEntity(Reclamo reclamo) {
+        ReclamoEntity auxR = new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion(), reclamo.getEstado());
+        return auxR;
     }
 
     public Reclamo getById(int idReclamo) throws ReclamoException {

@@ -34,6 +34,12 @@ public class ReclamoView {
         this.imagesPaths = imagesPaths;
     }
 
+    public List<String> getImagesPaths() {return imagesPaths; }
+
+    public void setImagesPaths(String imagePath) {
+        this.imagesPaths = imagesPaths;
+    }
+
     public Integer getId() {
         return id;
     }

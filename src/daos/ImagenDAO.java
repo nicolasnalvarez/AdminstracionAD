@@ -2,11 +2,13 @@ package daos;
 
 import entities.ImagenEntity;
 import entities.PersonaEntity;
+import entities.ReclamoEntity;
 import exceptions.ImagenException;
 import exceptions.PersonaException;
 import hibernate.HibernateUtil;
 import modelo.Imagen;
 import modelo.Persona;
+import modelo.Reclamo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -42,5 +44,16 @@ public class ImagenDAO {
 	
 	List<Imagen> toNegocio(List<ImagenEntity> imagenesEntities) {
 		return imagenesEntities.stream().map(ie -> new Imagen(ie.getPath(),ie.getTipo())).collect(Collectors.toList());
+	}
+
+
+	public int saveImage(Reclamo reclamo, List<Imagen> imagenes) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		int id = (Integer) s.save(new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion()));
+		imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), reclamo.toEntity())));
+		s.getTransaction().commit();
+		return id;
 	}
 }
