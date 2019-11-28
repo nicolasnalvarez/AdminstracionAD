@@ -28,8 +28,9 @@ public class ReclamoDAO {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session s = sf.getCurrentSession();
         s.beginTransaction();
-        int id = (Integer) s.save(new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion()));
-        imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), reclamo.toEntity())));
+        ReclamoEntity reclamoEntity = new ReclamoEntity(reclamo.getPersona().toEntity(), reclamo.getEdificio().toEntity(), reclamo.getUnidad().toEntity(), reclamo.getUbicacion(), reclamo.getDescripcion());
+        int id = (Integer) s.save(reclamoEntity);
+        imagenes.forEach(imagen -> s.save(new ImagenEntity(imagen.getPath(), imagen.getTipo(), reclamoEntity)));
         s.getTransaction().commit();
         return id;
     }
