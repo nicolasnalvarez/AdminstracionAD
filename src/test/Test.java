@@ -81,6 +81,10 @@ public class Test {
 
 		List<UnidadView> unidadesPorDNIInquilinoYEdificio = Controlador.getInstancia().getUnidadesByDocumentoInquilinoYIdEdificio("DNI31617676", 2);
 		System.out.println("\nEdificios por DNI inquilino " + unidadesPorDNIInquilinoYEdificio.size());
+
+		Controlador.getInstancia().getReclamosByDNI("DNI31522903");
+
+
 	}
 
 }

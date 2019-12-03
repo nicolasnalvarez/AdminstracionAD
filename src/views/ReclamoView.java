@@ -105,4 +105,12 @@ public class ReclamoView {
     public String getPisoUnidad() { return pisoUnidad; }
 
     public void setPisoUnidad(String pisoUnidad) { this.pisoUnidad = pisoUnidad; }
+
+    public List<String> getImagesPaths() {
+        return imagesPaths;
+    }
+
+    public void setImagesPaths(List<String> imagesPaths) {
+        this.imagesPaths = imagesPaths;
+    }
 }

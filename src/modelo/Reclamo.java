@@ -6,6 +6,7 @@ import entities.ReclamoEntity;
 import views.Estado;
 import views.ReclamoView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
